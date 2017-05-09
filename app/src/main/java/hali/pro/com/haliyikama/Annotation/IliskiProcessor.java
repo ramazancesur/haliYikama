@@ -17,7 +17,7 @@ public class IliskiProcessor {
         String createQuery = "";
         for (Field f : clazz.getDeclaredFields()) {
             if (f.getName().equals("oid")) {
-                createQuery = "CREATE TABLE Town (Oid varchar(55) PRIMARY KEY NOT NULL ";
+                createQuery = "CREATE TABLE "+clazz.getSimpleName()+" (Oid varchar(55) PRIMARY KEY NOT NULL ";
             }
             f.setAccessible(true);
             IliskiAnnotation fAnnotation = f.getAnnotation(IliskiAnnotation.class);

@@ -46,7 +46,7 @@ public class LocalDb extends SQLiteOpenHelper {
         return cursor;
     }
 
-    private <T extends BaseDTO<BaseDTO>> ContentValues staticData(T data) {
+    private <T extends BaseDTO> ContentValues staticData(T data) {
         ContentValues contentValues = new ContentValues();
         data.setCreatedDate(new Date());
         data.setEntityState(EnumUtil.EntityState.ACTIVE);
@@ -55,7 +55,7 @@ public class LocalDb extends SQLiteOpenHelper {
         return contentValues;
     }
 
-    public <T extends BaseDTO<BaseDTO>> T insertData(T data) {
+    public <T extends BaseDTO> T insertData(T data) {
         db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         for (Field field : data.getClass().getDeclaredFields()) {
