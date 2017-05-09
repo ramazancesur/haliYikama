@@ -1,4 +1,4 @@
-package hali.pro.com.haliyikama;
+package hali.pro.com.haliyikama.ServisResources;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,18 +9,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import hali.pro.com.haliyikama.Helper.Kisi;
+import hali.pro.com.haliyikama.R;
 
-public class BeforeAccepted extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    ListView lvTeslimEdilecekler;
+public class ReadyAccepted extends AppCompatActivity implements AdapterView.OnItemClickListener {
+    ListView lvTeslimeHazir;
     List<Kisi> lstKisi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_before_accepted);
+        setContentView(R.layout.activity_ready_accepted);
         init();
         List<String> lstKisiName = new ArrayList<String>();
         for (Kisi kisi : lstKisi) {
@@ -28,13 +30,13 @@ public class BeforeAccepted extends AppCompatActivity implements AdapterView.OnI
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_list_item_1, lstKisiName);
-        lvTeslimEdilecekler.setAdapter(arrayAdapter);
-        lvTeslimEdilecekler.setOnItemClickListener(this);
+        lvTeslimeHazir.setAdapter(arrayAdapter);
+        lvTeslimeHazir.setOnItemClickListener(this);
     }
 
-    public void init() {
-        lstKisi = new ArrayList<Kisi>();
-        lvTeslimEdilecekler = (ListView) findViewById(R.id.lstTeslimEdilecekler);
+    private void init() {
+        lvTeslimeHazir = (ListView) findViewById(R.id.lstTeslimwHazir);
+        lstKisi = new LinkedList<>();
         lstKisi.add(new Kisi("Ahmet Yılmaz", false));
         lstKisi.add(new Kisi("Ayşe Küçük", true));
         lstKisi.add(new Kisi("Fatma Bulgurcu", true));
@@ -47,11 +49,13 @@ public class BeforeAccepted extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
-            case R.id.lstTeslimEdilecekler:
+            case R.id.lstTeslimwHazir:
                 Intent intent = new Intent(getApplicationContext(), InformationAccount.class);
                 Kisi kisi = lstKisi.get(position);
                 intent.putExtra("siparisDetay", kisi);
                 startActivity(intent);
+                break;
+            default:
                 break;
         }
     }

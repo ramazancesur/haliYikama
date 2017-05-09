@@ -1,4 +1,4 @@
-package hali.pro.com.haliyikama;
+package hali.pro.com.haliyikama.ServisResources;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +12,15 @@ import java.util.Date;
 import java.util.List;
 
 import hali.pro.com.haliyikama.DTO.MusteriDTO;
+import hali.pro.com.haliyikama.Helper.LocalDb;
+import hali.pro.com.haliyikama.R;
 
 public class AddAccount extends AppCompatActivity implements View.OnClickListener {
     public static List<MusteriDTO> lstMusteri;
     Button btnReset, btnSubmit;
     EditText txtAdiSoyadi, txtPhoneNumber, txtAdress;
+
+    LocalDb localDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +38,14 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
         txtAdiSoyadi = (EditText) findViewById(R.id.txtYeniMusteriAdiSoyadi);
         txtAdress = (EditText) findViewById(R.id.txtYeniMusteriAddress);
         txtPhoneNumber = (EditText) findViewById(R.id.txtYeniMusteriPhone);
+        localDb = new LocalDb(getApplicationContext());
     }
 
+    // web servise gönderilecek
     private void addAccount(MusteriDTO musteriDTO) {
         lstMusteri.add(musteriDTO);
+
+        localDb.insertData(musteriDTO);
         Intent intent = new Intent(getApplicationContext(), login.class);
         startActivity(intent);
     }

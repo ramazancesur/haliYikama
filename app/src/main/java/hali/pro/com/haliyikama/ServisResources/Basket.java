@@ -1,4 +1,4 @@
-package hali.pro.com.haliyikama;
+package hali.pro.com.haliyikama.ServisResources;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import java.util.List;
 import hali.pro.com.haliyikama.DTO.SiparisListesiDTO;
 import hali.pro.com.haliyikama.DTO.UrunDTO;
 import hali.pro.com.haliyikama.Helper.Kisi;
+import hali.pro.com.haliyikama.R;
 
 public class Basket extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private static String productName;
@@ -46,9 +47,7 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
         lstUrunler = new ArrayList<>();
         urunDTO = new UrunDTO();
         urunDTO.setPrice(234);
-        urunDTO.setRemain(1);
         urunDTO.setProductName("test verisi");
-        urunDTO.setActive(true);
         lstUrunler.add(urunDTO);
         lstUrunler.add(urunDTO);
         lstUrunler.add(urunDTO);
@@ -99,6 +98,8 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
                 urunDTO.setProductName(productName);
                 lstUrunler.add(urunDTO);
                 //Veri tabanına Eklenecek
+
+
                 break;
             case R.id.btnCikar:
                 // Veri tabanından Çıkartılacak

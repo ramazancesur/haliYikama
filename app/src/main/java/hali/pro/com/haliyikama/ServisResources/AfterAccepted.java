@@ -1,4 +1,4 @@
-package hali.pro.com.haliyikama;
+package hali.pro.com.haliyikama.ServisResources;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hali.pro.com.haliyikama.Helper.Kisi;
+import hali.pro.com.haliyikama.R;
 
 public class AfterAccepted extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView lstAfterAccepted;

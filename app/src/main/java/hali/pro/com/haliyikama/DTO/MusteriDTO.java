@@ -1,5 +1,8 @@
 package hali.pro.com.haliyikama.DTO;
 
+
+import hali.pro.com.haliyikama.Helper.BaseDTO;
+
 /**
  * Created by ramazancesur on 01/05/2016.
  */

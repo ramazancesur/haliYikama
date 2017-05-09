@@ -3,13 +3,16 @@ package hali.pro.com.haliyikama.DTO;
 import java.util.Date;
 import java.util.List;
 
+import hali.pro.com.haliyikama.Annotation.IliskiAnnotation;
+import hali.pro.com.haliyikama.Helper.BaseDTO;
+
 /**
  * Created by ramazancesur on 01/05/2016.
  */
 public class SiparisListesiDTO extends BaseDTO {
+    @IliskiAnnotation
     private MusteriDTO musteri;
     private double totalammount;
-    private List<UrunDTO> urunDTOList;
     //Müşteri Sipariş Notu
     private String orderNotesCustom;
     //Satıcı Sipariş Notu
@@ -18,22 +21,9 @@ public class SiparisListesiDTO extends BaseDTO {
     private double arreas;
     //Teslimat Tarihi
     private Date deliveryDate;
+    @IliskiAnnotation
+    private List<Siparis> lstSiparis;
 
-    public double getArreas() {
-        return arreas;
-    }
-
-    public void setArreas(double arreas) {
-        this.arreas = arreas;
-    }
-
-    public Date getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    public void setDeliveryDate(Date deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
 
     public MusteriDTO getMusteri() {
         return musteri;
@@ -51,14 +41,6 @@ public class SiparisListesiDTO extends BaseDTO {
         this.totalammount = totalammount;
     }
 
-    public List<UrunDTO> getUrunDTOList() {
-        return urunDTOList;
-    }
-
-    public void setUrunDTOList(List<UrunDTO> urunDTOList) {
-        this.urunDTOList = urunDTOList;
-    }
-
     public String getOrderNotesCustom() {
         return orderNotesCustom;
     }
@@ -73,5 +55,29 @@ public class SiparisListesiDTO extends BaseDTO {
 
     public void setOrderNotesSeller(String orderNotesSeller) {
         this.orderNotesSeller = orderNotesSeller;
+    }
+
+    public double getArreas() {
+        return arreas;
+    }
+
+    public void setArreas(double arreas) {
+        this.arreas = arreas;
+    }
+
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public List<Siparis> getLstSiparis() {
+        return lstSiparis;
+    }
+
+    public void setLstSiparis(List<Siparis> lstSiparis) {
+        this.lstSiparis = lstSiparis;
     }
 }

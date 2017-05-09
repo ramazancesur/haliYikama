@@ -1,13 +1,19 @@
 package hali.pro.com.haliyikama.DTO;
 
+
+import hali.pro.com.haliyikama.Annotation.IliskiAnnotation;
+import hali.pro.com.haliyikama.Helper.BaseDTO;
+
 /**
  * Created by ramazancesur on 01/05/2016.
  */
+
 public class FaturaDTO extends BaseDTO {
     private String customNameSurname;
     private double totalPayment;
     private String LogoPath;
     private String customAdress;
+    @IliskiAnnotation
     private SiparisListesiDTO siparisListesi;
 
     public String getCustomNameSurname() {

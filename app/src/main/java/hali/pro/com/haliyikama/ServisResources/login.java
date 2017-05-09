@@ -1,10 +1,12 @@
-package hali.pro.com.haliyikama;
+package hali.pro.com.haliyikama.ServisResources;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import hali.pro.com.haliyikama.R;
 
 public class login extends AppCompatActivity implements View.OnClickListener {
 

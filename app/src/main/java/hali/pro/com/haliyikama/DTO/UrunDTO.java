@@ -1,13 +1,13 @@
 package hali.pro.com.haliyikama.DTO;
 
+import hali.pro.com.haliyikama.Helper.BaseDTO;
+
 /**
  * Created by ramazancesur on 01/05/2016.
  */
 public class UrunDTO extends BaseDTO {
     private String productName;
     private double price;
-    //Kalan
-    private int remain;
     //Geliş Tarihi
     private String commingDate;
 
@@ -26,14 +26,6 @@ public class UrunDTO extends BaseDTO {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public int getRemain() {
-        return remain;
-    }
-
-    public void setRemain(int remain) {
-        this.remain = remain;
     }
 
     public String getCommingDate() {

@@ -1,7 +1,9 @@
-package hali.pro.com.haliyikama;
+package hali.pro.com.haliyikama.ServisResources;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import hali.pro.com.haliyikama.R;
 
 public class SearchAccount extends AppCompatActivity {
 

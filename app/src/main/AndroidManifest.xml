@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,23 +23,31 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".login">
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="HaliYikamaLocal.db"></meta-data>
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1"></meta-data>
+
+
+        <activity android:name=".ServisResources.login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainLogin"
+            android:name=".ServisResources.MainLogin"
             android:label="@string/title_activity_main_login" />
-        <activity android:name=".AddAccount" />
-        <activity android:name=".InformationAccount" />
-        <activity android:name=".SearchAccount" />
-        <activity android:name=".Print" />
-        <activity android:name=".Basket" />
-        <activity android:name=".AfterAccepted" />
-        <activity android:name=".BeforeAccepted" />
-        <activity android:name=".ReadyAccepted"></activity>
+        <activity android:name=".ServisResources.AddAccount" />
+        <activity android:name=".ServisResources.InformationAccount" />
+        <activity android:name=".ServisResources.SearchAccount" />
+        <activity android:name=".ServisResources.Print" />
+        <activity android:name=".ServisResources.Basket" />
+        <activity android:name=".ServisResources.AfterAccepted" />
+        <activity android:name=".ServisResources.BeforeAccepted" />
+        <activity android:name=".ServisResources.ReadyAccepted"></activity>
 
     </application>
 
