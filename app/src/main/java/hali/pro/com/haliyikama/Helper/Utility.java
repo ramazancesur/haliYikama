@@ -1,5 +1,9 @@
 package hali.pro.com.haliyikama.Helper;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
@@ -8,6 +12,7 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -23,9 +28,23 @@ public class Utility {
     public static synchronized String generateUnique() {
         String ts = String.valueOf(System.currentTimeMillis());
         String rand = UUID.randomUUID().toString();
-        return DigestUtils.sha1Hex(ts + rand);
+        return new String(  Hex.encodeHex(DigestUtils.sha384(ts + rand)));
     }
 
+    public String firstLetterUpper(String word){
+        return word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase();
+    }
+
+    public Method searchMethodName(List<Method> lstMethod, final String methodName){
+        Method method=Iterables.find(lstMethod, new Predicate<Method>() {
+            @Override
+            public boolean apply(Method input) {
+                input.setAccessible(true);
+                return input.getName().equals("set"+firstLetterUpper(methodName));
+            }
+        });
+        return  method;
+    }
 
     public LinkedList<Class<?>> findAllClassinPackage(String packageName) {
         List<ClassLoader> classLoadersList = new LinkedList<ClassLoader>();

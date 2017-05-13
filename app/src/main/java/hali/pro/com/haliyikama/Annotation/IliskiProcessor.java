@@ -17,13 +17,13 @@ public class IliskiProcessor {
         String createQuery = "";
         for (Field f : clazz.getDeclaredFields()) {
             if (f.getName().equals("oid")) {
-                createQuery = "CREATE TABLE "+clazz.getSimpleName()+" (Oid varchar(55) PRIMARY KEY NOT NULL ";
+                createQuery = "CREATE TABLE " + clazz.getSimpleName() + " (Oid varchar(100) PRIMARY KEY NOT NULL ";
             }
             f.setAccessible(true);
             IliskiAnnotation fAnnotation = f.getAnnotation(IliskiAnnotation.class);
 
             if (fAnnotation != null) {
-                createQuery += " , " + f.getType().getSimpleName() + "_Oid  varchar(55) ";
+                createQuery += " , " + f.getType().getSimpleName() + "_Oid  varchar(100) ";
             }
             createQuery += " , " + f.getName() + " varchar(2000) ";
         }
