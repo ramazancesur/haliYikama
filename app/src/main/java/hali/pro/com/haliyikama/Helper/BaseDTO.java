@@ -5,11 +5,11 @@ import java.util.Date;
 /**
  * Created by ramazancesur on 01/05/2016.
  */
-public class BaseDTO<T extends BaseDTO> {
+public class BaseDTO {
     private Date createdDate;
     private Date updatedDate;
     private EnumUtil.EntityState entityState;
-    private Integer version;
+    private Long lastUpdated;
     private String oid;
 
     public Date getCreatedDate() {
@@ -36,12 +36,12 @@ public class BaseDTO<T extends BaseDTO> {
         this.entityState = entityState;
     }
 
-    public Integer getVersion() {
-        return version;
+    public Long getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setVersion(Integer version) {
-        this.version = version;
+    public void setLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public String getOid() {

@@ -6,7 +6,7 @@ import hali.pro.com.haliyikama.Helper.BaseDTO;
 /**
  * Created by ramazancesur on 01/05/2016.
  */
-public class MusteriDTO extends BaseDTO {
+public class Musteri extends BaseDTO {
     private String name;
     private String surname;
     private String phoneNumber;

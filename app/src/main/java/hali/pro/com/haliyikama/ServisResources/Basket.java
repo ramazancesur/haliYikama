@@ -12,20 +12,20 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import hali.pro.com.haliyikama.DTO.SiparisListesiDTO;
-import hali.pro.com.haliyikama.DTO.UrunDTO;
+import hali.pro.com.haliyikama.DTO.SiparisListesi;
+import hali.pro.com.haliyikama.DTO.Urun;
 import hali.pro.com.haliyikama.Helper.Kisi;
 import hali.pro.com.haliyikama.R;
 
 public class Basket extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private static String productName;
-    SiparisListesiDTO siparisListesi;
-    List<UrunDTO> lstUrunler;
+    SiparisListesi siparisListesi;
+    List<Urun> lstUrunler;
     List<String> lstProductName;
     Kisi kisi;
     Button btnInsert, btnDelete, btnSave;
     EditText txtm2, txtAdet, txtFiyat;
-    UrunDTO urunDTO;
+    Urun urun;
     Spinner spnUrun;
 
     @Override
@@ -34,8 +34,8 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
         setContentView(R.layout.activity_basket);
         init();
 
-        for (UrunDTO urunDTO : lstUrunler) {
-            lstProductName.add(urunDTO.getProductName());
+        for (Urun urun : lstUrunler) {
+            lstProductName.add(urun.getProductName());
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, lstProductName);
@@ -43,25 +43,25 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
         spnUrun.setOnItemSelectedListener(this);
     }
 
-    private List<UrunDTO> dataBinding() {
+    private List<Urun> dataBinding() {
         lstUrunler = new ArrayList<>();
-        urunDTO = new UrunDTO();
-        urunDTO.setPrice(234);
-        urunDTO.setProductName("test verisi");
-        lstUrunler.add(urunDTO);
-        lstUrunler.add(urunDTO);
-        lstUrunler.add(urunDTO);
-        lstUrunler.add(urunDTO);
-        lstUrunler.add(urunDTO);
-        lstUrunler.add(urunDTO);
+        urun = new Urun();
+        urun.setPrice(234);
+        urun.setProductName("test verisi");
+        lstUrunler.add(urun);
+        lstUrunler.add(urun);
+        lstUrunler.add(urun);
+        lstUrunler.add(urun);
+        lstUrunler.add(urun);
+        lstUrunler.add(urun);
         return lstUrunler;
     }
 
     private void init() {
         // ws den gelecek
-        lstUrunler = new ArrayList<UrunDTO>();
+        lstUrunler = new ArrayList<Urun>();
         // local veri tabanından gelecek
-        siparisListesi = new SiparisListesiDTO();
+        siparisListesi = new SiparisListesi();
         Bundle bundle = getIntent().getExtras();
         kisi = (Kisi) bundle.get("siparisDetay");
         lstProductName = new ArrayList<String>();
@@ -92,22 +92,22 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnEkle:
-                urunDTO = new UrunDTO();
-                urunDTO.setPrice(Double.parseDouble(txtFiyat.getText().toString()));
-                urunDTO.setVersion(1);
-                urunDTO.setProductName(productName);
-                lstUrunler.add(urunDTO);
+                urun = new Urun();
+                urun.setPrice(Double.parseDouble(txtFiyat.getText().toString()));
+                urun.setVersion(1);
+                urun.setProductName(productName);
+                lstUrunler.add(urun);
                 //Veri tabanına Eklenecek
 
 
                 break;
             case R.id.btnCikar:
                 // Veri tabanından Çıkartılacak
-                urunDTO = new UrunDTO();
-                urunDTO.setPrice(Double.parseDouble(txtFiyat.getText().toString()));
-                urunDTO.setVersion(1);
-                urunDTO.setProductName(productName);
-                lstUrunler.remove(urunDTO);
+                urun = new Urun();
+                urun.setPrice(Double.parseDouble(txtFiyat.getText().toString()));
+                urun.setVersion(1);
+                urun.setProductName(productName);
+                lstUrunler.remove(urun);
                 break;
             case R.id.btnKaydet:
                 //Ws deki esas kullanılan veri tabanına eklenecek

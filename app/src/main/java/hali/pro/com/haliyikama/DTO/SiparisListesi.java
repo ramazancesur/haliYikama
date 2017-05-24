@@ -9,9 +9,9 @@ import hali.pro.com.haliyikama.Helper.BaseDTO;
 /**
  * Created by ramazancesur on 01/05/2016.
  */
-public class SiparisListesiDTO extends BaseDTO {
+public class SiparisListesi extends BaseDTO {
     @IliskiAnnotation
-    private MusteriDTO musteri;
+    private Musteri musteri;
     private double totalammount;
     //Müşteri Sipariş Notu
     private String orderNotesCustom;
@@ -25,11 +25,11 @@ public class SiparisListesiDTO extends BaseDTO {
     private List<Siparis> lstSiparis;
 
 
-    public MusteriDTO getMusteri() {
+    public Musteri getMusteri() {
         return musteri;
     }
 
-    public void setMusteri(MusteriDTO musteri) {
+    public void setMusteri(Musteri musteri) {
         this.musteri = musteri;
     }
 

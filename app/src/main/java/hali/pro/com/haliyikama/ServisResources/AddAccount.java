@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import hali.pro.com.haliyikama.DTO.MusteriDTO;
+import hali.pro.com.haliyikama.DTO.Musteri;
 import hali.pro.com.haliyikama.Helper.LocalDb;
 import hali.pro.com.haliyikama.R;
 
 public class AddAccount extends AppCompatActivity implements View.OnClickListener {
-    public static List<MusteriDTO> lstMusteri;
+    public static List<Musteri> lstMusteri;
     Button btnReset, btnSubmit;
     EditText txtAdiSoyadi, txtPhoneNumber, txtAdress;
 
@@ -32,7 +32,7 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
     }
 
     private void init() {
-        lstMusteri = new ArrayList<MusteriDTO>();
+        lstMusteri = new ArrayList<Musteri>();
         btnReset = (Button) findViewById(R.id.btnYeniMusteriReset);
         btnSubmit = (Button) findViewById(R.id.btnYeniMusteriKaydet);
         txtAdiSoyadi = (EditText) findViewById(R.id.txtYeniMusteriAdiSoyadi);
@@ -42,10 +42,10 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
     }
 
     // web servise gönderilecek
-    private void addAccount(MusteriDTO musteriDTO) {
-        lstMusteri.add(musteriDTO);
+    private void addAccount(Musteri musteri) {
+        lstMusteri.add(musteri);
 
-        localDb.insertData(musteriDTO);
+        localDb.insertData(musteri);
         Intent intent = new Intent(getApplicationContext(), login.class);
         startActivity(intent);
     }
@@ -60,12 +60,12 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnYeniMusteriKaydet:
-                MusteriDTO musteriDTO = new MusteriDTO();
-                musteriDTO.setAdress(txtAdress.getText().toString());
-                musteriDTO.setName(txtAdiSoyadi.getText().toString());
-                musteriDTO.setPhoneNumber(txtPhoneNumber.getText().toString());
-                musteriDTO.setCreatedDate(new Date());
-                addAccount(musteriDTO);
+                Musteri musteri = new Musteri();
+                musteri.setAdress(txtAdress.getText().toString());
+                musteri.setName(txtAdiSoyadi.getText().toString());
+                musteri.setPhoneNumber(txtPhoneNumber.getText().toString());
+                musteri.setCreatedDate(new Date());
+                addAccount(musteri);
                 break;
             case R.id.btnYeniMusteriReset:
                 Reset();

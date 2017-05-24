@@ -36,7 +36,7 @@ public class LocalDb extends SQLiteOpenHelper {
     public LocalDb(Context c) {
         super(c, DATABASE_NAME , null, DATABASE_VERSION);
 
-        this.context = c;
+        context = c;
         utility = new Utility();
         iliskiProcessor = new IliskiProcessor();
 

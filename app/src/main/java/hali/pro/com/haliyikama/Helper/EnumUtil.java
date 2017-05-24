@@ -10,6 +10,31 @@ public class EnumUtil {
     }
 
     public enum EntityState {
-        PASSIVE, ACTIVE
+        PASSIVE(0, "Pasif"),
+        ACTIVE(1, "Aktif");
+        private final Integer id;
+        private final String name;
+
+        private EntityState(Integer id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        public static EntityState parse(Integer id) {
+            for (EntityState entityState : EntityState.values()) {
+                if (entityState.getId().equals(id)) {
+                    return entityState;
+                }
+            }
+            return null;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 }

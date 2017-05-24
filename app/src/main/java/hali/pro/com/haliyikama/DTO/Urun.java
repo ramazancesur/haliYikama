@@ -5,7 +5,7 @@ import hali.pro.com.haliyikama.Helper.BaseDTO;
 /**
  * Created by ramazancesur on 01/05/2016.
  */
-public class UrunDTO extends BaseDTO {
+public class Urun extends BaseDTO {
     private String productName;
     private double price;
     //Geliş Tarihi

@@ -8,17 +8,17 @@ import hali.pro.com.haliyikama.Helper.BaseDTO;
  */
 public class Siparis extends BaseDTO {
     @IliskiAnnotation
-    private UrunDTO urunDTO;
+    private Urun urun;
     private int metre;
     @IliskiAnnotation
-    private SiparisListesiDTO siparisListesiDTO;
+    private SiparisListesi siparisListesi;
 
-    public UrunDTO getUrunDTO() {
-        return urunDTO;
+    public Urun getUrun() {
+        return urun;
     }
 
-    public void setUrunDTO(UrunDTO urunDTO) {
-        this.urunDTO = urunDTO;
+    public void setUrun(Urun urun) {
+        this.urun = urun;
     }
 
     public int getMetre() {
@@ -29,11 +29,11 @@ public class Siparis extends BaseDTO {
         this.metre = metre;
     }
 
-    public SiparisListesiDTO getSiparisListesiDTO() {
-        return siparisListesiDTO;
+    public SiparisListesi getSiparisListesi() {
+        return siparisListesi;
     }
 
-    public void setSiparisListesiDTO(SiparisListesiDTO siparisListesiDTO) {
-        this.siparisListesiDTO = siparisListesiDTO;
+    public void setSiparisListesi(SiparisListesi siparisListesi) {
+        this.siparisListesi = siparisListesi;
     }
 }

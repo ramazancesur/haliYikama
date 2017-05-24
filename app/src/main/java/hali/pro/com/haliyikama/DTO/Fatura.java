@@ -8,13 +8,13 @@ import hali.pro.com.haliyikama.Helper.BaseDTO;
  * Created by ramazancesur on 01/05/2016.
  */
 
-public class FaturaDTO extends BaseDTO {
+public class Fatura extends BaseDTO {
     private String customNameSurname;
     private double totalPayment;
     private String LogoPath;
     private String customAdress;
     @IliskiAnnotation
-    private SiparisListesiDTO siparisListesi;
+    private SiparisListesi siparisListesi;
 
     public String getCustomNameSurname() {
         return customNameSurname;
@@ -48,11 +48,11 @@ public class FaturaDTO extends BaseDTO {
         this.customAdress = customAdress;
     }
 
-    public SiparisListesiDTO getSiparisListesi() {
+    public SiparisListesi getSiparisListesi() {
         return siparisListesi;
     }
 
-    public void setSiparisListesi(SiparisListesiDTO siparisListesi) {
+    public void setSiparisListesi(SiparisListesi siparisListesi) {
         this.siparisListesi = siparisListesi;
     }
 }
