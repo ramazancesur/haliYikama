@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "hali.pro.com.haliyikama"
@@ -27,4 +27,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 }

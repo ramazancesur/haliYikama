@@ -8,6 +8,7 @@ import java.util.Date;
 public class BaseDTO {
     private Date createdDate;
     private Date updatedDate;
+    private int version;
     private EnumUtil.EntityState entityState;
     private Long lastUpdated;
     private String oid;
@@ -26,6 +27,14 @@ public class BaseDTO {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public EnumUtil.EntityState getEntityState() {
