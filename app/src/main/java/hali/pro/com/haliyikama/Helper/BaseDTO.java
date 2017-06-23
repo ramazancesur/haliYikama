@@ -1,17 +1,31 @@
 package hali.pro.com.haliyikama.Helper;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by ramazancesur on 01/05/2016.
  */
-public class BaseDTO {
-    private Date createdDate;
-    private Date updatedDate;
-    private int version;
+public class BaseDTO extends Model implements Serializable{
+    @Column
     private EnumUtil.EntityState entityState;
-    private Long lastUpdated;
-    private String oid;
+    @Column
+    private Date createdDate;
+    @Column
+    private Date updatedDate;
+    @Column
+    private Long oid;
+
+    public EnumUtil.EntityState getEntityState() {
+        return entityState;
+    }
+
+    public void setEntityState(EnumUtil.EntityState entityState) {
+        this.entityState = entityState;
+    }
 
     public Date getCreatedDate() {
         return createdDate;
@@ -29,35 +43,11 @@ public class BaseDTO {
         this.updatedDate = updatedDate;
     }
 
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-    public EnumUtil.EntityState getEntityState() {
-        return entityState;
-    }
-
-    public void setEntityState(EnumUtil.EntityState entityState) {
-        this.entityState = entityState;
-    }
-
-    public Long getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(Long lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
-    public String getOid() {
+    public Long getOid() {
         return oid;
     }
 
-    public void setOid(String oid) {
+    public void setOid(Long oid) {
         this.oid = oid;
     }
 }

@@ -20,8 +20,9 @@ import hali.pro.com.haliyikama.Annotation.IliskiProcessor;
  * Created by ramazancesur on 07/05/2017.
  */
 
-public class LocalDb extends SQLiteOpenHelper {
+public class LocalDb /* extends SQLiteOpenHelper */ {
 
+    /*
     // Database Version
     private static final int DATABASE_VERSION = 1;
     // Database Name
@@ -125,6 +126,8 @@ public class LocalDb extends SQLiteOpenHelper {
                 FIELD_TYPE_FLOAT
                 FIELD_TYPE_STRING
                 FIELD_TYPE_BLOB  */
+
+    /*
             case 0:
                 return null;
             case 1:
@@ -297,5 +300,5 @@ public class LocalDb extends SQLiteOpenHelper {
     }
 
 
-
+*/
 }

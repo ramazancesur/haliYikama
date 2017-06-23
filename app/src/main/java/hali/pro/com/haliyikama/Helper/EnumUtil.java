@@ -9,6 +9,18 @@ public class EnumUtil {
         PATRON, ISCİ, ARAC
     }
 
+    public enum SiparisDurum{
+        TESLIM_EDILECEK,TESLIME_HAZIR,TESLIM
+    }
+
+    public enum  SendingDataType{
+        POST,PUT,DELETE
+    }
+
+    public enum UnitType {
+        ADET, KG, ML
+    }
+
     public enum EntityState {
         PASSIVE(0, "Pasif"),
         ACTIVE(1, "Aktif");
@@ -36,5 +48,16 @@ public class EnumUtil {
         public String getName() {
             return name;
         }
+    }
+
+    public enum AddresTipi {
+        EV, IS, GENEL
+    }
+
+    public enum ContactTipi {
+        EV, CEP, IS, GENEL
+    }
+    public enum TelOrAddres {
+        TELEFON, ADDRES
     }
 }
