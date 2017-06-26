@@ -5,12 +5,12 @@ package hali.pro.com.haliyikama.authenticationentities;
  */
 
 public class JwtUser {
-    private  Long id;
-    private  String username;
-    private  String firstname;
-    private  String lastname;
-    private  String password;
-    private  String email;
+    private Long id;
+    private String username;
+    private String firstname;
+    private String lastname;
+    private String password;
+    private String email;
 
 
     public Long getId() {

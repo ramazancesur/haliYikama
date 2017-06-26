@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="hali.pro.com.haliyikama.ServisResources.AfterAccepted">
+    tools:context="hali.pro.com.haliyikama.servisresources.AfterAccepted">
 
     <ListView
         android:id="@+id/lstTeslimAlacaklar"

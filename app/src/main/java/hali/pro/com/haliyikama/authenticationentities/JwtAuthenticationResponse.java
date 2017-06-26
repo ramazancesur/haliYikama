@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by ramazancesur on 23/06/2017.
  */
 
-public class JwtAuthenticationResponse implements Serializable{
+public class JwtAuthenticationResponse implements Serializable {
 
     private String token;
     private String userName;
