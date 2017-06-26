@@ -32,7 +32,7 @@ public class BeforeAccepted extends AppCompatActivity implements AdapterView.OnI
         setContentView(R.layout.activity_before_accepted);
         try {
             init();
-            SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(pd, getApplicationContext(), EnumUtil.SiparisDurum.TESLIM_EDILECEK);
+            SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(pd,BeforeAccepted.this, EnumUtil.SiparisDurum.TESLIM_EDILECEK);
             siparisListesiDoldur.execute();
         } catch (Exception ex) {
             if (ex.getMessage().contains("401")) {

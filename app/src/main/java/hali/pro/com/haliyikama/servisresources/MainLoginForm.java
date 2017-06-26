@@ -1,6 +1,7 @@
 package hali.pro.com.haliyikama.servisresources;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
     Button btnGiris;
     ProgressDialog pd;
 
+    public static String username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,8 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
         txtUserName = (EditText) findViewById(R.id.txtGirisKullaniciAdi);
         txtPassword = (EditText) findViewById(R.id.txtGirisSifre);
         btnGiris = (Button) findViewById(R.id.btnGirisYap);
+        username="";
+        password="";
     }
 
 
@@ -44,15 +48,15 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnGirisYap:
-                String userName = txtUserName.getText().toString();
-                String password = txtPassword.getText().toString();
-                Login login = new Login(userName, password);
+                username = txtUserName.getText().toString();
+                password = txtPassword.getText().toString();
+                Login login=new Login(username,password);
                 login.execute();
 
                 if (RAuthentication.jwtAuthenticationResponse == null) {
                     Toast.makeText(getApplicationContext(), "Geçersiz Giriş Yaptınız Lütfen Kullanıcı Adı ve Şifrenizi Kontrol Ediniz...", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    Intent intent = new Intent(MainLoginForm.this, login.class);
                     startActivity(intent);
 
                 }
@@ -73,8 +77,8 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pd = new ProgressDialog(getApplicationContext());
-            pd.setMessage("Giriş Yapılıyor...");
+            pd = new ProgressDialog(MainLoginForm.this);
+            pd.setMessage("Giriş Yapılıyor Lütfen Bekleyiniz...");
             pd.show();
         }
 
@@ -89,7 +93,6 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
                 RAuthentication.getAuthTokenCookie(user);
             } catch (IOException e) {
                 Log.d("hata", "doInBackground: " + e.getMessage());
-                e.printStackTrace();
             }
             return "";
         }

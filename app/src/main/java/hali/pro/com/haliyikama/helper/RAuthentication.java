@@ -1,5 +1,7 @@
 package hali.pro.com.haliyikama.helper;
 
+import android.os.StrictMode;
+
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,6 +38,10 @@ public class RAuthentication {
                 JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest(user.getUsername(), user.getPassword());
 
 
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+                StrictMode.setThreadPolicy(policy);
+
                 ClientResponse response = webResource.type("application/json")
                         .post(ClientResponse.class, mapper.writeValueAsString(jwtAuthenticationRequest));
 
@@ -55,7 +61,9 @@ public class RAuthentication {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            if (jwtAuthenticationResponse.getToken()==null){
+                jwtAuthenticationResponse=null;
+            }
             return jwtAuthenticationResponse;
 
         } else {

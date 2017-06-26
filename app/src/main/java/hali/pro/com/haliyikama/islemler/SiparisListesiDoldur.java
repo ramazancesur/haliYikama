@@ -45,12 +45,18 @@ public class SiparisListesiDoldur extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        List<SiparisListesiDTO> lstSiparisAll = dataIslem.get("Borc/SiparisListesi/all", SiparisListesiDTO.class);
+        List<SiparisListesiDTO> lstSiparisAll = dataIslem.get("Borc/SiparisListesiDTO/all", SiparisListesiDTO.class);
         for (SiparisListesiDTO siparisListesiDTO : lstSiparisAll) {
             if (siparisListesiDTO.getSiparisDurum() == siparisDurum) {
                 lstSiparisListesi.add(siparisListesiDTO);
             }
         }
         return "işlem tamamlandı";
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        pd.dismiss();
+        super.onPostExecute(s);
     }
 }

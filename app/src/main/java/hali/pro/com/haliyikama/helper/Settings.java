@@ -5,7 +5,7 @@ package hali.pro.com.haliyikama.helper;
  */
 
 public class Settings {
-    private static final String serverUrl = "http://localhost:9000";
+    private static final String serverUrl = "http://192.168.43.213:9000";
 
     public static String getServerUrl() {
         return serverUrl;

@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:gravity="top|left"
-                android:inputType="textPassword"
+                android:inputType="textEmailSubject"
                 android:lines="5"
                 android:scrollHorizontally="false" />
 
