@@ -80,8 +80,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dip"
-                android:layout_weight="1"
-                android:inputType="text" />
+                android:inputType="textMultiLine"
+                android:layout_weight="1" />
         </TableRow>
 
 
@@ -101,31 +101,31 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="9"
+                android:inputType="phone"
                 android:layout_marginLeft="0dip"
                 android:layout_weight="2" />
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dip">
+
+            <Button
+                android:id="@+id/btnYeniMusteriReset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:text="Sayfayı Temizle" />
+
+            <Button
+                android:id="@+id/btnYeniMusteriKaydet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:text="Kaydet" />
+        </TableRow>
     </TableLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="20dip">
-
-        <Button
-            android:id="@+id/btnYeniMusteriReset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:text="Sayfayı Temizle" />
-
-        <Button
-            android:id="@+id/btnYeniMusteriKaydet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_weight="1"
-            android:text="Kaydet" />
-    </LinearLayout>
-
 </LinearLayout>

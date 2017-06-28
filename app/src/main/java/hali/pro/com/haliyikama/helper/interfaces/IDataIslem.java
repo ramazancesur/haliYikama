@@ -1,5 +1,7 @@
 package hali.pro.com.haliyikama.helper.interfaces;
 
+import android.content.Context;
+
 import java.util.List;
 
 import hali.pro.com.haliyikama.helper.EnumUtil;
@@ -10,8 +12,8 @@ import hali.pro.com.haliyikama.helper.EnumUtil;
 
 public interface IDataIslem {
     <T> void addOrUpdate(T data, String serviceUrl,
-                         EnumUtil.SendingDataType dataType);
+                         EnumUtil.SendingDataType dataType, Context ctx);
 
-    <T> List<T> get(String serviceUrl, Class clazz);
+    <T> List<T> get(String serviceUrl, Class clazz, Context ctx);
 
 }

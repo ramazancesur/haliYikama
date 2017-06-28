@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by ramazancesur on 01/05/2016.
  */
-public class BaseDTO  implements Serializable {
+public class BaseDTO implements Serializable {
 
     private EnumUtil.EntityState entityState;
 

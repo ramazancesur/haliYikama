@@ -6,37 +6,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import hali.pro.com.haliyikama.R;
+import hali.pro.com.haliyikama.dto.MusteriDTO;
 
 /**
  * Created by ramazancesur on 05/06/2016.
  */
 public class OzelAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private List<Kisi> mKisiListesi;
+    private List<MusteriDTO> lstMusteriDto;
 
-    public OzelAdapter(Activity activity, List<Kisi> kisiler) {
+    public OzelAdapter(Activity activity, List<MusteriDTO> lstMusteriDto) {
         //XML'i alıp View'a çevirecek inflater'ı örnekleyelim
         mInflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         //gösterilecek listeyi de alalım
-        mKisiListesi = kisiler;
+        this.lstMusteriDto = lstMusteriDto;
     }
 
     @Override
     public int getCount() {
-        return mKisiListesi.size();
+        return lstMusteriDto.size();
     }
 
     @Override
-    public Kisi getItem(int position) {
+    public MusteriDTO getItem(int position) {
         //şöyle de olabilir: public Object getItem(int position)
-        return mKisiListesi.get(position);
+        return lstMusteriDto.get(position);
     }
 
     @Override
@@ -51,14 +51,8 @@ public class OzelAdapter extends BaseAdapter {
         satirView = mInflater.inflate(R.layout.satir_layout, null);
         TextView textView =
                 (TextView) satirView.findViewById(R.id.isimsoyisim);
-        ImageView imageView =
-                (ImageView) satirView.findViewById(R.id.simge);
-
-        Kisi kisi = mKisiListesi.get(position);
-
-        textView.setText(kisi.getIsim());
-
-
+        MusteriDTO musteriDTO = lstMusteriDto.get(position);
+        textView.setText(musteriDTO.getAd() + " " + musteriDTO.getSoyad());
         return satirView;
     }
 }

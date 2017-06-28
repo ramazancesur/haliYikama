@@ -3,6 +3,7 @@ package hali.pro.com.haliyikama.servisresources;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -97,14 +98,21 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
             case R.id.btnYeniMusteriKaydet:
                 MusteriDTO musteriDTO = createMusteriDTO();
                 try {
-                    dataIslem.addOrUpdate(musteriDTO, "Musteri/MusteriDTO", EnumUtil.SendingDataType.POST);
+                    dataIslem.addOrUpdate(musteriDTO, "Musteri/MusteriDTO", EnumUtil.SendingDataType.POST, AddAccount.this);
+                    Toast.makeText(getApplicationContext(), "Başarı ile Müşteri Kaydı Oluşturuldu", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(AddAccount.this,login.class);
+                    startActivity(intent);
                 } catch (Exception ex) {
                     if (ex.getMessage().contains("401")) {
                         Toast.makeText(getApplicationContext(), "Giriş Süreniz Doldu Tekrar Giriş Yapınız", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(), MainLoginForm.class);
                         startActivity(intent);
+                    } else if (ex.getMessage().contains("1200")) {
+                        Toast.makeText(getApplicationContext(), "İnternet Bağlantısı Mevcut Değil", Toast.LENGTH_LONG);
                     }
-                    ex.printStackTrace();
+                    else {
+                        Log.e("musteri_eklemede_hata",ex.getMessage());
+                    }
                 }
 
                 break;

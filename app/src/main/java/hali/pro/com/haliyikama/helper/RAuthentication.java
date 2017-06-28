@@ -61,8 +61,8 @@ public class RAuthentication {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if (jwtAuthenticationResponse.getToken()==null){
-                jwtAuthenticationResponse=null;
+            if (jwtAuthenticationResponse.getToken() == null) {
+                jwtAuthenticationResponse = null;
             }
             return jwtAuthenticationResponse;
 

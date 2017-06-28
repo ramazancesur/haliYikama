@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import hali.pro.com.haliyikama.R;
+import hali.pro.com.haliyikama.helper.RAuthentication;
 
 public class login extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,6 +26,17 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         btnTeslimAlacaklar.setOnClickListener(this);
         btnTeslimEdilecekler.setOnClickListener(this);
     }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(login.this, "Uygulamamızı Kullandığınız İçin Teşekkür Ederiz...", Toast.LENGTH_LONG).show();
+        RAuthentication.jwtAuthenticationResponse = null;
+        MainLoginForm.txtPassword.setText("");
+        MainLoginForm.txtUserName.setText("");
+        finish();
+        return;
+    }
+
 
     private void init() {
         btnTeslimEdilecekler = (Button) findViewById(R.id.btnTeslimEdilecek);

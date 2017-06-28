@@ -1,9 +1,6 @@
 package hali.pro.com.haliyikama.servisresources;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,11 +16,9 @@ import hali.pro.com.haliyikama.authenticationentities.JwtUser;
 import hali.pro.com.haliyikama.helper.RAuthentication;
 
 public class MainLoginForm extends AppCompatActivity implements View.OnClickListener {
-    EditText txtUserName, txtPassword;
+    public static EditText txtUserName, txtPassword;
     Button btnGiris;
-    ProgressDialog pd;
 
-    public static String username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +30,11 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
 
     }
 
+
     private void init() {
         txtUserName = (EditText) findViewById(R.id.txtGirisKullaniciAdi);
         txtPassword = (EditText) findViewById(R.id.txtGirisSifre);
         btnGiris = (Button) findViewById(R.id.btnGirisYap);
-        username="";
-        password="";
     }
 
 
@@ -48,10 +42,15 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnGirisYap:
-                username = txtUserName.getText().toString();
-                password = txtPassword.getText().toString();
-                Login login=new Login(username,password);
-                login.execute();
+
+                JwtUser user = new JwtUser();
+                user.setPassword(txtUserName.getText().toString());
+                user.setUsername(txtPassword.getText().toString());
+                try {
+                    RAuthentication.getAuthTokenCookie(user);
+                } catch (IOException e) {
+                    Log.e("hata meydana geldi", e.getMessage());
+                }
 
                 if (RAuthentication.jwtAuthenticationResponse == null) {
                     Toast.makeText(getApplicationContext(), "Geçersiz Giriş Yaptınız Lütfen Kullanıcı Adı ve Şifrenizi Kontrol Ediniz...", Toast.LENGTH_SHORT).show();
@@ -64,43 +63,11 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    public EditText getTxtUserName() {
+        return txtUserName;
+    }
 
-    private class Login extends AsyncTask<String, String, String> {
-        private String username, password;
-
-        public Login(String username, String password) {
-            this.username = username;
-            this.password = password;
-        }
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pd = new ProgressDialog(MainLoginForm.this);
-            pd.setMessage("Giriş Yapılıyor Lütfen Bekleyiniz...");
-            pd.show();
-        }
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            try {
-                JwtUser user = new JwtUser();
-                user.setPassword(this.password);
-                user.setUsername(this.username);
-                RAuthentication.getAuthTokenCookie(user);
-            } catch (IOException e) {
-                Log.d("hata", "doInBackground: " + e.getMessage());
-            }
-            return "";
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            pd.dismiss();
-        }
+    public EditText getTxtPassword() {
+        return txtPassword;
     }
 }

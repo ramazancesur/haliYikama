@@ -32,7 +32,7 @@ public class AfterAccepted extends AppCompatActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_after_accepted);
         try {
             init();
-            SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(pd,AfterAccepted.this, EnumUtil.SiparisDurum.TESLIM);
+            SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(pd, AfterAccepted.this, EnumUtil.SiparisDurum.TESLIM);
             siparisListesiDoldur.execute();
         } catch (Exception ex) {
             if (ex.getMessage().contains("401")) {

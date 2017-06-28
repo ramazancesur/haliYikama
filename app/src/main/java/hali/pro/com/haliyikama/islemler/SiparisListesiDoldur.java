@@ -10,6 +10,7 @@ import java.util.List;
 
 import hali.pro.com.haliyikama.dto.SiparisListesiDTO;
 import hali.pro.com.haliyikama.helper.EnumUtil;
+import hali.pro.com.haliyikama.helper.interfaces.IDataIslem;
 
 /**
  * Created by ramazancesur on 26/06/2017.
@@ -20,7 +21,7 @@ public class SiparisListesiDoldur extends AsyncTask<String, String, String> {
     ProgressDialog pd;
     Context ctx;
     EnumUtil.SiparisDurum siparisDurum;
-    DataIslem dataIslem;
+    IDataIslem dataIslem;
 
     public SiparisListesiDoldur(ProgressDialog progressDialog, Context context, EnumUtil.SiparisDurum siparisDurum) {
         this.pd = progressDialog;
@@ -44,8 +45,7 @@ public class SiparisListesiDoldur extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
-
-        List<SiparisListesiDTO> lstSiparisAll = dataIslem.get("Borc/SiparisListesiDTO/all", SiparisListesiDTO.class);
+        List<SiparisListesiDTO> lstSiparisAll = dataIslem.get("Borc/SiparisListesiDTO/all", SiparisListesiDTO.class, ctx);
         for (SiparisListesiDTO siparisListesiDTO : lstSiparisAll) {
             if (siparisListesiDTO.getSiparisDurum() == siparisDurum) {
                 lstSiparisListesi.add(siparisListesiDTO);

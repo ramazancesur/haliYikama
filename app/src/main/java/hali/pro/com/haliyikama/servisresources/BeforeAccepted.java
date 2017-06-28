@@ -32,13 +32,15 @@ public class BeforeAccepted extends AppCompatActivity implements AdapterView.OnI
         setContentView(R.layout.activity_before_accepted);
         try {
             init();
-            SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(pd,BeforeAccepted.this, EnumUtil.SiparisDurum.TESLIM_EDILECEK);
+            SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(pd, BeforeAccepted.this, EnumUtil.SiparisDurum.TESLIM_EDILECEK);
             siparisListesiDoldur.execute();
         } catch (Exception ex) {
             if (ex.getMessage().contains("401")) {
                 Toast.makeText(this, "Oturum Süresi Dolmuştur Lütfen Tekrar Giriş Yapınız... ", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, MainLoginForm.class);
                 startActivity(intent);
+            } else if (ex.getMessage().contains("1200")) {
+                Toast.makeText(this, "BEKLENMEYEN HATA", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "BEKLENMEYEN HATA", Toast.LENGTH_SHORT).show();
                 Log.e(this.getClass().getSimpleName() + " hata meydana geldi: ", ex.getMessage());
