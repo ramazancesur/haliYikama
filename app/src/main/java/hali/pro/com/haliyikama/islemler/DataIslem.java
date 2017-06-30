@@ -15,6 +15,7 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +30,8 @@ import hali.pro.com.haliyikama.helper.Utility;
 import hali.pro.com.haliyikama.helper.interfaces.IDataIslem;
 import hali.pro.com.haliyikama.helper.interfaces.IUtility;
 import hali.pro.com.haliyikama.servisresources.MainLoginForm;
+
+import static hali.pro.com.haliyikama.islemler.UnixEpochDateTypeAdapter.getUnixEpochDateTypeAdapter;
 
 /**
  * Created by ramazancesur on 23/06/2017.
@@ -53,7 +56,9 @@ public class DataIslem implements IDataIslem {
     private <T> List<T> listEntity(Class<T> clazz, String strJson) {
         try {
             // Consuming remote method
-            Gson gson = new GsonBuilder().create();
+            final Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Date.class, getUnixEpochDateTypeAdapter())
+                    .create();;
 
             JsonParser parser = new JsonParser();
             JsonArray array = parser.parse(strJson).getAsJsonArray();

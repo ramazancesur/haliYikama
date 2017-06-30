@@ -16,7 +16,6 @@ public class MusteriDTO extends BaseDTO {
     private Double toplamBorc;
     private Long firmMusteriOid;
 
-
     public String getAd() {
         return ad;
     }

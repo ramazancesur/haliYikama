@@ -46,7 +46,7 @@ public class MusteriListesiDoldur extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        lstMusteri = dataIslem.get("Borc/SiparisListesiDTO/all", MusteriDTO.class, ctx);
+        lstMusteri = dataIslem.get("Musteri/MusteriDTO/all", MusteriDTO.class, ctx);
         Collections.sort(lstMusteri, new Comparator<MusteriDTO>() {
             public int compare(MusteriDTO o1, MusteriDTO o2) {
                 return o1.getAd().compareTo(o2.getAd());

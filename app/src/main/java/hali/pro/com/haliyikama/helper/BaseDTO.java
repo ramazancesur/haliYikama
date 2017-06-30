@@ -7,22 +7,9 @@ import java.util.Date;
  * Created by ramazancesur on 01/05/2016.
  */
 public class BaseDTO implements Serializable {
-
-    private EnumUtil.EntityState entityState;
-
     private Date createdDate;
-
     private Date updatedDate;
-
     private Long oid;
-
-    public EnumUtil.EntityState getEntityState() {
-        return entityState;
-    }
-
-    public void setEntityState(EnumUtil.EntityState entityState) {
-        this.entityState = entityState;
-    }
 
     public Date getCreatedDate() {
         return createdDate;
