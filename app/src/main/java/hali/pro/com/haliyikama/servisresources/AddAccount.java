@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -23,16 +24,23 @@ import hali.pro.com.haliyikama.islemler.DataIslem;
 
 public class AddAccount extends AppCompatActivity implements View.OnClickListener {
     public static List<MusteriDTO> lstMusteriDTO;
-    Button btnReset, btnSubmit;
+    Button btnReset, btnSubmit, btnDelete, btnUpdate, btnSiparisEkle;
     EditText txtMusteriAdi, txtMusteriSoyadi, txtPhoneNumber, txtAdress;
     IDataIslem dataIslem;
+    TableRow rowMusteriSilme, rowMusteriEkleme;
 
-    private MusteriDTO createMusteriDTO() {
-        MusteriDTO musteriDTO = new MusteriDTO();
-        musteriDTO.setAd(txtMusteriAdi.getText().toString());
-        musteriDTO.setSoyad(txtMusteriSoyadi.getText().toString());
-        musteriDTO.setLstAdresTel(getAdresTel());
-        return musteriDTO;
+    MusteriDTO musteri;
+
+    boolean musteriIsExist = false;
+
+    private MusteriDTO createOrUpdateMusteri() {
+        if (musteri == null) {
+            musteri = new MusteriDTO();
+        }
+        musteri.setAd(txtMusteriAdi.getText().toString());
+        musteri.setSoyad(txtMusteriSoyadi.getText().toString());
+        musteri.setLstAdresTel(getAdresTel());
+        return musteri;
     }
 
     private List<AdresTelefon> getAdresTel() {
@@ -57,18 +65,36 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_account);
         try {
+            musteri = (MusteriDTO) getIntent().getSerializableExtra("selectedMusteri");
+            if (musteri != null) {
+                musteriIsExist = true;
+            }
             init();
         } catch (IOException e) {
             e.printStackTrace();
         }
         btnSubmit.setOnClickListener(this);
         btnReset.setOnClickListener(this);
+        btnUpdate.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
+        btnSiparisEkle.setOnClickListener(this);
     }
 
     private void init() throws IOException {
         lstMusteriDTO = new ArrayList<MusteriDTO>();
-        btnReset = (Button) findViewById(R.id.btnYeniMusteriReset);
-        btnSubmit = (Button) findViewById(R.id.btnYeniMusteriKaydet);
+        rowMusteriEkleme = (TableRow) findViewById(R.id.rowMusteriEkleme);
+        rowMusteriSilme = (TableRow) findViewById(R.id.rowMusteriSilme);
+        btnSiparisEkle = (Button) findViewById(R.id.btnMusteriSiparisEkle);
+        if (musteriIsExist == false) {
+            btnReset = (Button) findViewById(R.id.btnYeniMusteriReset);
+            btnSubmit = (Button) findViewById(R.id.btnYeniMusteriKaydet);
+            rowMusteriSilme.setVisibility(View.GONE);
+        } else {
+            rowMusteriEkleme.setVisibility(View.GONE);
+            btnDelete = (Button) findViewById(R.id.btnMusteriSil);
+            btnUpdate = (Button) findViewById(R.id.btnMusteriGuncelle);
+        }
+
         txtMusteriAdi = (EditText) findViewById(R.id.txtYeniMusteriAdi);
         txtMusteriSoyadi = (EditText) findViewById(R.id.txtYeniMusteriSoyadi);
         txtAdress = (EditText) findViewById(R.id.txtYeniMusteriAddress);
@@ -76,14 +102,6 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
         dataIslem = new DataIslem();
     }
 
-    // web servise gönderilecek
-    private void addAccount(MusteriDTO musteriDTO) {
-        lstMusteriDTO.add(musteriDTO);
-
-
-        Intent intent = new Intent(getApplicationContext(), login.class);
-        startActivity(intent);
-    }
 
     private void Reset() {
         txtPhoneNumber.setText("");
@@ -92,33 +110,55 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
         txtAdress.setText("");
     }
 
+    private void catchControl(Exception ex) {
+        if (ex.getMessage().contains("401")) {
+            Toast.makeText(getApplicationContext(), "Giriş Süreniz Doldu Tekrar Giriş Yapınız", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(), MainLoginForm.class);
+            startActivity(intent);
+        } else if (ex.getMessage().contains("1200")) {
+            Toast.makeText(getApplicationContext(), "İnternet Bağlantısı Mevcut Değil", Toast.LENGTH_LONG);
+        } else {
+            Log.e("musteri_eklemede_hata", ex.getMessage());
+        }
+    }
+
     @Override
     public void onClick(View v) {
+        MusteriDTO musteriDTO = createOrUpdateMusteri();
         switch (v.getId()) {
             case R.id.btnYeniMusteriKaydet:
-                MusteriDTO musteriDTO = createMusteriDTO();
-                try {
-                    dataIslem.addOrUpdate(musteriDTO, "Musteri/MusteriDTO", EnumUtil.SendingDataType.POST, AddAccount.this);
-                    Toast.makeText(getApplicationContext(), "Başarı ile Müşteri Kaydı Oluşturuldu", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(AddAccount.this,login.class);
-                    startActivity(intent);
-                } catch (Exception ex) {
-                    if (ex.getMessage().contains("401")) {
-                        Toast.makeText(getApplicationContext(), "Giriş Süreniz Doldu Tekrar Giriş Yapınız", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(), MainLoginForm.class);
-                        startActivity(intent);
-                    } else if (ex.getMessage().contains("1200")) {
-                        Toast.makeText(getApplicationContext(), "İnternet Bağlantısı Mevcut Değil", Toast.LENGTH_LONG);
-                    }
-                    else {
-                        Log.e("musteri_eklemede_hata",ex.getMessage());
-                    }
-                }
-
+                musteriIslem(EnumUtil.SendingDataType.POST, "Başarı ile Müşteri Oluşturuldu");
                 break;
             case R.id.btnYeniMusteriReset:
                 Reset();
                 break;
+            case R.id.btnMusteriGuncelle:
+                musteriIslem(EnumUtil.SendingDataType.PUT, "Başarı ile Müşteri Güncellendi");
+                break;
+            case R.id.btnMusteriSil:
+                musteriIslem(EnumUtil.SendingDataType.DELETE, "Başarı ile Müşteri Silindi  ");
+                break;
+            case R.id.btnMusteriSiparisEkle:
+                Intent intent = new Intent(this, InformationAccount.class);
+                intent.putExtra("musteri", musteriDTO);
+                startActivity(intent);
+                break;
+
         }
+    }
+
+
+    private void musteriIslem(EnumUtil.SendingDataType sendingDataType, String message) {
+        try {
+            dataIslem.addOrUpdate(musteri, "Musteri/MusteriDTO", sendingDataType, this);
+            Toast.makeText(getApplicationContext(), message
+                    , Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(AddAccount.this, login.class);
+            startActivity(intent);
+
+        } catch (Exception ex) {
+            catchControl(ex);
+        }
+
     }
 }

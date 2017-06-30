@@ -16,4 +16,6 @@ public interface IDataIslem {
 
     <T> List<T> get(String serviceUrl, Class clazz, Context ctx);
 
+    <T> void updateDeleteCreateProcess(EnumUtil.SendingDataType sendingDataType, String message, Context context,
+                                       T data, String serviceUrl);
 }

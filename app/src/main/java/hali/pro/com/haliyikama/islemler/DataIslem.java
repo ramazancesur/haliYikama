@@ -2,6 +2,7 @@ package hali.pro.com.haliyikama.islemler;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -58,7 +59,8 @@ public class DataIslem implements IDataIslem {
             // Consuming remote method
             final Gson gson = new GsonBuilder()
                     .registerTypeAdapter(Date.class, getUnixEpochDateTypeAdapter())
-                    .create();;
+                    .create();
+            ;
 
             JsonParser parser = new JsonParser();
             JsonArray array = parser.parse(strJson).getAsJsonArray();
@@ -108,6 +110,30 @@ public class DataIslem implements IDataIslem {
             throw new RuntimeException("1200_Internet_Not_Exist");
         }
     }
+
+
+    public <T> void updateDeleteCreateProcess(EnumUtil.SendingDataType sendingDataType, String message, Context context,
+                                              T data, String serviceUrl) {
+        try {
+            addOrUpdate(data, serviceUrl, sendingDataType, context);
+            Toast.makeText(context, message
+                    , Toast.LENGTH_SHORT).show();
+        } catch (Exception ex) {
+            catchControl(ex, context);
+        }
+
+    }
+
+    private void catchControl(Exception ex, Context context) {
+        if (ex.getMessage().contains("401")) {
+            Toast.makeText(context, "Giriş Süreniz Doldu Tekrar Giriş Yapınız", Toast.LENGTH_LONG).show();
+        } else if (ex.getMessage().contains("1200")) {
+            Toast.makeText(context, "İnternet Bağlantısı Mevcut Değil", Toast.LENGTH_LONG);
+        } else {
+            Log.e("musteri_eklemede_hata", ex.getMessage());
+        }
+    }
+
 
     public <T> void addOrUpdate(T data, String serviceUrl,
                                 EnumUtil.SendingDataType dataType, Context ctx) {

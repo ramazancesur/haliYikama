@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#E1F5FE"
+    android:drawingCacheQuality="high"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="5">
+
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ürün Adı: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+
+                    <EditText
+                        android:id="@+id/txtYeniUrunAdi"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:hint="Ürün Adı Giriniz..." />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="5">
+
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ürün Fiyatı: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+
+                    <EditText
+                        android:id="@+id/txtYeniUrunFiyati"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:hint="Ürün Fiyatı Giriniz..."
+                        android:inputType="number" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="5">
+
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ürün Açıklaması: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+
+                    <EditText
+                        android:id="@+id/txtYeniUrunAciklamasi"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:hint="Ürün Açıklaması Giriniz..." />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="5">
+
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Urun Cinsi: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <Spinner
+                        android:id="@+id/spnYeniUrunBirim"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="4"
+                        android:gravity="center" />
+
+
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/rowUrunEkleme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="20dip">
+
+                    <Button
+                        android:id="@+id/btnYeniUrunReset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:text="Sayfayı Temizle" />
+
+                    <Button
+                        android:id="@+id/btnYeniUrunKaydet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:text="Kaydet" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/rowUrunSilme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="20dip">
+
+                    <Button
+                        android:id="@+id/btnUrunGuncelle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:text="Bilgileri Güncelle" />
+
+                    <Button
+                        android:id="@+id/btnUrunSil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:text="Kaydı Sil" />
+                </TableRow>
+
+
+            </TableLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

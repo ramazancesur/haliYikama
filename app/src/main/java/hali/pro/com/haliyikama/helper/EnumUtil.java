@@ -18,7 +18,43 @@ public class EnumUtil {
     }
 
     public enum UnitType {
-        ADET, KG, ML
+        ADET(1, "ADET"),
+        KG(2, "KG"),
+        ML(3, "ML");
+
+        private int id;
+        private String name;
+
+
+        UnitType(int i, String adet) {
+            this.id = id;
+            this.name = name;
+        }
+
+        public static UnitType parse(Integer id) {
+            for (UnitType entityState : UnitType.values()) {
+                if (entityState.getId().equals(id)) {
+                    return entityState;
+                }
+            }
+            return null;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
     public enum EntityState {

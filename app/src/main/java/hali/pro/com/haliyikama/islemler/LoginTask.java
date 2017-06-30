@@ -14,14 +14,15 @@ import hali.pro.com.haliyikama.helper.RAuthentication;
  * Created by ramazancesur on 30/06/2017.
  */
 
-public class LoginTask extends AsyncTask<String,String,String> {
+public class LoginTask extends AsyncTask<String, String, String> {
     ProgressDialog pd;
     JwtUser user;
     Context ctx;
-    public  LoginTask(Context context, JwtUser jwtUser,ProgressDialog dialog){
-        this.ctx=context;
-        this.pd=dialog;
-        this.user=jwtUser;
+
+    public LoginTask(Context context, JwtUser jwtUser, ProgressDialog dialog) {
+        this.ctx = context;
+        this.pd = dialog;
+        this.user = jwtUser;
     }
 
     @Override
@@ -36,10 +37,10 @@ public class LoginTask extends AsyncTask<String,String,String> {
     protected String doInBackground(String... params) {
         try {
             RAuthentication.getAuthTokenCookie(user);
-            return "işlem başarılı" ;
+            return "işlem başarılı";
         } catch (IOException e) {
             Log.e("hata meydana geldi", e.getMessage());
-            return  "hata "+e.getMessage() ;
+            return "hata " + e.getMessage();
         }
     }
 

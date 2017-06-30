@@ -41,7 +41,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
-    compile 'com.android.support.constraint:constraint-layout:+'
-    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

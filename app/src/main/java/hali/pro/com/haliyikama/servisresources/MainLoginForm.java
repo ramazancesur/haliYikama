@@ -3,7 +3,6 @@ package hali.pro.com.haliyikama.servisresources;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -55,7 +54,7 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
                     user.setPassword(txtUserName.getText().toString());
                     user.setUsername(txtPassword.getText().toString());
 
-                    LoginTask loginTask = new LoginTask(MainLoginForm.this, user,progressDialog);
+                    LoginTask loginTask = new LoginTask(MainLoginForm.this, user, progressDialog);
                     try {
                         loginTask.execute().get();
                     } catch (InterruptedException e) {
@@ -72,9 +71,8 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
 
                     }
                     break;
-                }
-                else {
-                    Toast.makeText(MainLoginForm.this,"İnternet bağlantınız mevcut değil",Toast.LENGTH_LONG);
+                } else {
+                    Toast.makeText(MainLoginForm.this, "İnternet bağlantınız mevcut değil", Toast.LENGTH_LONG);
                 }
         }
     }

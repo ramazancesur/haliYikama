@@ -26,9 +26,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".servisresources.login">
-
-        </activity>
+        <activity android:name=".servisresources.login" />
         <activity android:name=".servisresources.AddAccount" />
         <activity android:name=".servisresources.InformationAccount" />
         <activity android:name=".servisresources.SearchAccount" />
@@ -44,6 +42,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".servisresources.SiparisListesiToplami"
+            android:label="@string/title_activity_siparis_listesi_toplami"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".servisresources.UrunEkle"
+            android:label="@string/title_activity_urun_ekle"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

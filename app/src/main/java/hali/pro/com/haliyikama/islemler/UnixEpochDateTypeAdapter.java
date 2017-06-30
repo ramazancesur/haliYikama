@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by ramazancesur on 30/06/2017.
  */
 
-final public class UnixEpochDateTypeAdapter  extends TypeAdapter<Date> {
+final public class UnixEpochDateTypeAdapter extends TypeAdapter<Date> {
     private static final TypeAdapter<Date> unixEpochDateTypeAdapter = new UnixEpochDateTypeAdapter();
 
     private UnixEpochDateTypeAdapter() {
