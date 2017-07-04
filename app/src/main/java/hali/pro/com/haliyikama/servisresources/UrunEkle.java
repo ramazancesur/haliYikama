@@ -37,6 +37,10 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_urun_ekle);
         init();
+        btnReset.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
+        btnUpdate.setOnClickListener(this);
+        btnSubmit.setOnClickListener(this);
 
     }
 
@@ -50,28 +54,29 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
         setDataAdaptor();
         urunDTO = (UrunDTO) getIntent().getSerializableExtra("selectedUrun");
 
+        btnSubmit = (Button) findViewById(R.id.btnYeniUrunKaydet);
+        btnReset = (Button) findViewById(R.id.btnYeniUrunReset);
+        btnDelete = (Button) findViewById(R.id.btnUrunSil);
+        btnUpdate = (Button) findViewById(R.id.btnUrunGuncelle);
+
+
         if (urunDTO != null) {
             flag = true;
         }
 
         if (flag == false) {
-            // Burada yeni ürün kaydetme işlemi
-            btnSubmit = (Button) findViewById(R.id.btnYeniUrunKaydet);
-            btnReset = (Button) findViewById(R.id.btnYeniUrunReset);
 
             rowUrunSilme = (TableRow) findViewById(R.id.rowUrunSilme);
             rowUrunSilme.setVisibility(View.GONE);
         } else {
-            btnDelete = (Button) findViewById(R.id.btnUrunSil);
-            btnUpdate = (Button) findViewById(R.id.btnUrunGuncelle);
 
             rowUrunEkleme = (TableRow) findViewById(R.id.rowUrunEkleme);
             rowUrunEkleme.setVisibility(View.GONE);
         }
+
         txtUrunAdi = (EditText) findViewById(R.id.txtYeniUrunAdi);
         txtFiyati = (EditText) findViewById(R.id.txtYeniUrunFiyati);
         txtUrunAciklamasi = (EditText) findViewById(R.id.txtYeniUrunAciklamasi);
-
     }
 
     private void resetForms() {

@@ -13,7 +13,7 @@ import hali.pro.com.haliyikama.helper.RAuthentication;
 public class login extends AppCompatActivity implements View.OnClickListener {
 
     Button btnTeslimEdilecekler, btnTeslimAlacaklar, btnYeniMusteri, btnMusteriArama,
-            btnTeslimeHazir;
+            btnTeslimeHazir,btnUrunEkle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         btnTeslimeHazir.setOnClickListener(this);
         btnTeslimAlacaklar.setOnClickListener(this);
         btnTeslimEdilecekler.setOnClickListener(this);
+        btnUrunEkle.setOnClickListener(this);
     }
 
     @Override
@@ -44,6 +45,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         btnYeniMusteri = (Button) findViewById(R.id.btnYeniMusteri);
         btnMusteriArama = (Button) findViewById(R.id.btnMusteriAra);
         btnTeslimeHazir = (Button) findViewById(R.id.btnTeslimeHazir);
+        btnUrunEkle=(Button)findViewById(R.id.btnLoginUrunEkle);
     }
 
     @Override
@@ -62,6 +64,9 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             startActivity(intent);
         } else if (v.getId() == R.id.btnMusteriAra) {
             Intent intent = new Intent(getApplicationContext(), SearchAccount.class);
+            startActivity(intent);
+        } else if (v.getId() ==R.id.btnLoginUrunEkle){
+            Intent intent = new Intent(getApplicationContext(), UrunEkle.class);
             startActivity(intent);
         }
 

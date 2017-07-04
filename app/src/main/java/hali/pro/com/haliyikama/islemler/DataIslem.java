@@ -1,6 +1,7 @@
 package hali.pro.com.haliyikama.islemler;
 
 import android.content.Context;
+import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -143,6 +144,10 @@ public class DataIslem implements IDataIslem {
 
                 serviceUrl = Settings.getServerUrl() + "/" + serviceUrl;
                 try {
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+                    StrictMode.setThreadPolicy(policy);
+
                     Client client = Client.create();
                     WebResource webResource = client.resource(serviceUrl);
 
@@ -153,16 +158,16 @@ public class DataIslem implements IDataIslem {
                     ClientResponse response = null;
                     MultivaluedMap<String, String> queryParams = createHeader();
                     if (dataType == EnumUtil.SendingDataType.POST) {
-                        webResource.queryParams(queryParams)
+                        response=webResource.queryParams(queryParams)
                                 .header("Content-Type", "application/json;charset=UTF-8")
                                 .header("Authorization", jwtAuthenticationResponse.getToken()).post(ClientResponse.class, input);
                     } else if (dataType == EnumUtil.SendingDataType.PUT) {
-                        webResource.queryParams(queryParams)
+                       response=webResource.queryParams(queryParams)
                                 .header("Content-Type", "application/json;charset=UTF-8")
                                 .header("Authorization", jwtAuthenticationResponse.getToken()).put(ClientResponse.class, input);
 
                     } else {
-                        webResource.queryParams(queryParams)
+                        response=webResource.queryParams(queryParams)
                                 .header("Content-Type", "application/json;charset=UTF-8")
                                 .header("Authorization", jwtAuthenticationResponse.getToken()).delete(ClientResponse.class, input);
                     }
