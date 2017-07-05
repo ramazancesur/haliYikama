@@ -122,4 +122,22 @@
         android:text="Kaydet" />
 
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#E1F5FE"
+        android:drawingCacheQuality="high"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/lstSiparisSepeti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/txtTeslimAlacaklar"
+            android:background="#e0ece0" />
+
+
+    </LinearLayout>
 </RelativeLayout>
