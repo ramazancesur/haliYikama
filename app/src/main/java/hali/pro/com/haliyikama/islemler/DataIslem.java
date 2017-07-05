@@ -10,12 +10,16 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -32,8 +36,6 @@ import hali.pro.com.haliyikama.helper.Utility;
 import hali.pro.com.haliyikama.helper.interfaces.IDataIslem;
 import hali.pro.com.haliyikama.helper.interfaces.IUtility;
 import hali.pro.com.haliyikama.servisresources.MainLoginForm;
-
-import static hali.pro.com.haliyikama.islemler.UnixEpochDateTypeAdapter.getUnixEpochDateTypeAdapter;
 
 /**
  * Created by ramazancesur on 23/06/2017.
@@ -58,9 +60,17 @@ public class DataIslem implements IDataIslem {
     private <T> List<T> listEntity(Class<T> clazz, String strJson) {
         try {
             // Consuming remote method
-            final Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(Date.class, getUnixEpochDateTypeAdapter())
-                    .create();
+            JsonSerializer<Date> ser = new JsonSerializer<Date>() {
+                @Override
+                public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext
+                        context) {
+                    return src == null ? null : new JsonPrimitive(src.getTime());
+                }
+            };
+
+
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(java.sql.Date.class, ser).create();
             ;
 
             JsonParser parser = new JsonParser();

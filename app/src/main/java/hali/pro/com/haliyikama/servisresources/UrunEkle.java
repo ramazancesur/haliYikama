@@ -30,7 +30,6 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
     IDataIslem dataIslem;
     TableRow rowUrunSilme, rowUrunEkleme;
     UrunDTO urunDTO;
-    Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +49,7 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         spnYeniUrunBirim = (Spinner) findViewById(R.id.spnYeniUrunBirim);
         setDataAdaptor();
         urunDTO = (UrunDTO) getIntent().getSerializableExtra("selectedUrun");
@@ -59,31 +59,29 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
         btnDelete = (Button) findViewById(R.id.btnUrunSil);
         btnUpdate = (Button) findViewById(R.id.btnUrunGuncelle);
 
-
-        if (urunDTO != null) {
-            flag = true;
-        }
-
-        if (flag == false) {
-
-            rowUrunSilme = (TableRow) findViewById(R.id.rowUrunSilme);
-            rowUrunSilme.setVisibility(View.GONE);
-        } else {
-
-            rowUrunEkleme = (TableRow) findViewById(R.id.rowUrunEkleme);
-            rowUrunEkleme.setVisibility(View.GONE);
-        }
-
         txtUrunAdi = (EditText) findViewById(R.id.txtYeniUrunAdi);
         txtFiyati = (EditText) findViewById(R.id.txtYeniUrunFiyati);
         txtUrunAciklamasi = (EditText) findViewById(R.id.txtYeniUrunAciklamasi);
+
+
+        if (urunDTO == null) {
+            rowUrunSilme = (TableRow) findViewById(R.id.rowUrunSilme);
+            rowUrunSilme.setVisibility(View.GONE);
+        } else {
+            rowUrunEkleme = (TableRow) findViewById(R.id.rowUrunEkleme);
+            rowUrunEkleme.setVisibility(View.GONE);
+
+            txtUrunAdi.setText(urunDTO.getProductName());
+            txtFiyati.setText(String.valueOf(urunDTO.getPrice()));
+            txtUrunAciklamasi.setText(urunDTO.getUrunAciklamasi());
+        }
+
     }
 
     private void resetForms() {
         txtUrunAciklamasi.setText("");
         txtUrunAdi.setText("");
         txtFiyati.setText("0");
-        spnYeniUrunBirim.setSelection(0);
     }
 
     private void setDataAdaptor() {
@@ -96,7 +94,7 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
         spnYeniUrunBirim.setAdapter(dataAdapter);
     }
 
-    private UrunDTO createOrUpdateUrunDTO() {
+    private UrunDTO createOrUpdateUrunDTO(UrunDTO urunDTO) {
         if (urunDTO == null) {
             urunDTO = new UrunDTO();
         }
@@ -118,11 +116,11 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        createOrUpdateUrunDTO();
+        createOrUpdateUrunDTO(urunDTO);
         switch (v.getId()) {
             case R.id.btnYeniUrunKaydet:
                 dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.POST, "Ürün basarı ile Kaydedildi", this, urunDTO, "Product/UrunDTO");
-                Intent intent = new Intent(this, MainLoginForm.class);
+                Intent intent = new Intent(this, login.class);
                 startActivity(intent);
                 break;
             case R.id.btnYeniUrunReset:
@@ -130,12 +128,12 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
                 break;
             case R.id.btnUrunGuncelle:
                 dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.PUT, "Ürün basarı ile Güncellendi", this, urunDTO, "Product/UrunDTO");
-                Intent intent2 = new Intent(this, MainLoginForm.class);
+                Intent intent2 = new Intent(this, login.class);
                 startActivity(intent2);
                 break;
             case R.id.btnUrunSil:
                 dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.DELETE, "Ürün basarı ile Silindi", this, urunDTO, "Product/UrunDTO");
-                Intent intent3 = new Intent(this, MainLoginForm.class);
+                Intent intent3 = new Intent(this, login.class);
                 startActivity(intent3);
                 break;
         }

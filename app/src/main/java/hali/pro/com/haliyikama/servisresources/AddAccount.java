@@ -33,10 +33,8 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
 
     boolean musteriIsExist = false;
 
-    private MusteriDTO createOrUpdateMusteri() {
-        if (musteri == null) {
-            musteri = new MusteriDTO();
-        }
+    private MusteriDTO createMusteri() {
+        musteri = new MusteriDTO();
         musteri.setAd(txtMusteriAdi.getText().toString());
         musteri.setSoyad(txtMusteriSoyadi.getText().toString());
         musteri.setLstAdresTel(getAdresTel());
@@ -60,6 +58,17 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
         return lstAdresTel;
     }
 
+    private List<AdresTelefon> getAdresTelUpdate(MusteriDTO musteriDTO) {
+        List<AdresTelefon> lstAdresTel = musteriDTO.getLstAdresTel();
+        for (AdresTelefon adresTelefon : lstAdresTel) {
+            if (adresTelefon.getTelOrAddres() == EnumUtil.TelOrAddres.ADDRES) {
+                adresTelefon.setDeger(txtAdress.getText().toString());
+            } else if (adresTelefon.getTelOrAddres() == EnumUtil.TelOrAddres.TELEFON) {
+                adresTelefon.setDeger(txtPhoneNumber.getText().toString());
+            }
+        }
+        return lstAdresTel;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,20 +94,34 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
         rowMusteriEkleme = (TableRow) findViewById(R.id.rowMusteriEkleme);
         rowMusteriSilme = (TableRow) findViewById(R.id.rowMusteriSilme);
         btnSiparisEkle = (Button) findViewById(R.id.btnMusteriSiparisEkle);
-        if (musteriIsExist == false) {
-            btnReset = (Button) findViewById(R.id.btnYeniMusteriReset);
-            btnSubmit = (Button) findViewById(R.id.btnYeniMusteriKaydet);
-            rowMusteriSilme.setVisibility(View.GONE);
-        } else {
-            rowMusteriEkleme.setVisibility(View.GONE);
-            btnDelete = (Button) findViewById(R.id.btnMusteriSil);
-            btnUpdate = (Button) findViewById(R.id.btnMusteriGuncelle);
-        }
+        btnDelete = (Button) findViewById(R.id.btnMusteriSil);
+        btnUpdate = (Button) findViewById(R.id.btnMusteriGuncelle);
+        btnReset = (Button) findViewById(R.id.btnYeniMusteriReset);
+        btnSubmit = (Button) findViewById(R.id.btnYeniMusteriKaydet);
 
         txtMusteriAdi = (EditText) findViewById(R.id.txtYeniMusteriAdi);
         txtMusteriSoyadi = (EditText) findViewById(R.id.txtYeniMusteriSoyadi);
         txtAdress = (EditText) findViewById(R.id.txtYeniMusteriAddress);
         txtPhoneNumber = (EditText) findViewById(R.id.txtYeniMusteriPhone);
+
+        if (musteriIsExist == false) {
+            rowMusteriSilme.setVisibility(View.GONE);
+        } else {
+            txtMusteriAdi.setText(musteri.getAd());
+            txtMusteriSoyadi.setText(musteri.getSoyad());
+            String musteriAdres = "", musteriTel = "";
+            for (AdresTelefon adresTelefon : musteri.getLstAdresTel()) {
+                if (adresTelefon.getTelOrAddres() == EnumUtil.TelOrAddres.ADDRES) {
+                    musteriAdres = adresTelefon.getDeger();
+                } else {
+                    musteriTel = adresTelefon.getDeger();
+                }
+            }
+            txtAdress.setText(musteriAdres);
+            txtPhoneNumber.setText(musteriTel);
+            rowMusteriEkleme.setVisibility(View.GONE);
+        }
+
         dataIslem = new DataIslem();
     }
 
@@ -124,23 +147,26 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        MusteriDTO musteriDTO = createOrUpdateMusteri();
         switch (v.getId()) {
             case R.id.btnYeniMusteriKaydet:
-                musteriIslem(EnumUtil.SendingDataType.POST, "Başarı ile Müşteri Oluşturuldu");
+                MusteriDTO musteriDTO = createMusteri();
+                musteriIslem(musteriDTO, EnumUtil.SendingDataType.POST, "Başarı ile Müşteri Oluşturuldu");
                 break;
             case R.id.btnYeniMusteriReset:
                 Reset();
                 break;
             case R.id.btnMusteriGuncelle:
-                musteriIslem(EnumUtil.SendingDataType.PUT, "Başarı ile Müşteri Güncellendi");
+                musteri.setAd(txtMusteriAdi.getText().toString());
+                musteri.setSoyad(txtMusteriSoyadi.getText().toString());
+                musteri.setLstAdresTel(getAdresTelUpdate(musteri));
+                musteriIslem(musteri, EnumUtil.SendingDataType.PUT, "Başarı ile Müşteri Güncellendi");
                 break;
             case R.id.btnMusteriSil:
-                musteriIslem(EnumUtil.SendingDataType.DELETE, "Başarı ile Müşteri Silindi  ");
+                musteriIslem(musteri, EnumUtil.SendingDataType.DELETE, "Başarı ile Müşteri Silindi  ");
                 break;
             case R.id.btnMusteriSiparisEkle:
                 Intent intent = new Intent(this, InformationAccount.class);
-                intent.putExtra("musteri", musteriDTO);
+                intent.putExtra("musteri", musteri);
                 startActivity(intent);
                 break;
 
@@ -148,9 +174,9 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
     }
 
 
-    private void musteriIslem(EnumUtil.SendingDataType sendingDataType, String message) {
+    private void musteriIslem(MusteriDTO musteriDTO, EnumUtil.SendingDataType sendingDataType, String message) {
         try {
-            dataIslem.addOrUpdate(musteri, "Musteri/MusteriDTO", sendingDataType, this);
+            dataIslem.addOrUpdate(musteriDTO, "Musteri/MusteriDTO", sendingDataType, this);
             Toast.makeText(getApplicationContext(), message
                     , Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(AddAccount.this, login.class);

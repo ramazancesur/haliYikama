@@ -73,9 +73,7 @@ public class SearchAccount extends AppCompatActivity implements View.OnClickList
                         lstFilterMusteri.add(musteriDTO);
                     }
                 }
-
                 setAdapter(lstFilterMusteri);
-
                 break;
         }
     }
@@ -89,7 +87,6 @@ public class SearchAccount extends AppCompatActivity implements View.OnClickList
                 intent.putExtra("selectedMusteri", selectedMusteri);
                 startActivity(intent);
                 break;
-
         }
     }
 }

@@ -13,7 +13,7 @@ import hali.pro.com.haliyikama.helper.RAuthentication;
 public class login extends AppCompatActivity implements View.OnClickListener {
 
     Button btnTeslimEdilecekler, btnTeslimAlacaklar, btnYeniMusteri, btnMusteriArama,
-            btnTeslimeHazir,btnUrunEkle;
+            btnTeslimeHazir, btnUrunEkle, btnUrunArama;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         btnTeslimAlacaklar.setOnClickListener(this);
         btnTeslimEdilecekler.setOnClickListener(this);
         btnUrunEkle.setOnClickListener(this);
+        btnUrunArama.setOnClickListener(this);
     }
 
     @Override
@@ -46,6 +47,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         btnMusteriArama = (Button) findViewById(R.id.btnMusteriAra);
         btnTeslimeHazir = (Button) findViewById(R.id.btnTeslimeHazir);
         btnUrunEkle=(Button)findViewById(R.id.btnLoginUrunEkle);
+        btnUrunArama = (Button) findViewById(R.id.btnUrunListele);
     }
 
     @Override
@@ -67,6 +69,9 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             startActivity(intent);
         } else if (v.getId() ==R.id.btnLoginUrunEkle){
             Intent intent = new Intent(getApplicationContext(), UrunEkle.class);
+            startActivity(intent);
+        } else if (v.getId() == R.id.btnUrunListele) {
+            Intent intent = new Intent(getApplicationContext(), UrunAra.class);
             startActivity(intent);
         }
 

@@ -49,6 +49,10 @@
         <activity
             android:name=".servisresources.UrunEkle"
             android:label="@string/title_activity_urun_ekle"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".servisresources.UrunAra"
+            android:label="@string/title_activity_urun_ara"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

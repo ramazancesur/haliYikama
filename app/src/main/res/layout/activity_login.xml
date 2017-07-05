@@ -120,6 +120,23 @@
                     android:background="@color/abc_search_url_text_normal"
                     android:text="Ürün Ekle" />
             </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="15dip"
+                android:layout_marginLeft="10dp">
+
+                <Button
+                    android:id="@+id/btnUrunListele"
+                    android:layout_width="fill_parent"
+                    android:layout_below="@+id/btnMusteriAra"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="13dp"
+                    android:layout_weight="1"
+                    android:background="@color/abc_search_url_text_normal"
+                    android:text="Ürün Listele" />
+            </TableRow>
+
         </TableLayout>
     </ScrollView>
 </RelativeLayout>
