@@ -43,10 +43,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".servisresources.SiparisListesiToplami"
-            android:label="@string/title_activity_siparis_listesi_toplami"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".servisresources.UrunEkle"
             android:label="@string/title_activity_urun_ekle"
             android:theme="@style/AppTheme.NoActionBar" />

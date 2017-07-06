@@ -1,143 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#E1F5FE"
+    android:drawingCacheQuality="high"
+    android:orientation="vertical"
+    android:weightSum="7"
     tools:context="hali.pro.com.haliyikama.servisresources.Basket">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5">
 
-    <TextView
-        android:id="@+id/lblUrun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="22dp"
-        android:text="Urün:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
-    <Spinner
-        android:id="@+id/spnUrun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/lblUrun"
-        android:layout_marginLeft="50dp" />
-
-    <TextView
-        android:id="@+id/lblm2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/lblUrun"
-        android:layout_marginTop="45dp"
-        android:text="m2:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/txtm2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spnUrun"
-        android:layout_alignStart="@+id/spnUrun"
-        android:layout_alignTop="@+id/lblm2"
-        android:inputType="number"
-        android:text="2 "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/lblAdet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/lblm2"
-        android:layout_marginTop="45dp"
-        android:text="Adet:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/txtAdet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spnUrun"
-        android:layout_alignStart="@+id/spnUrun"
-        android:layout_alignTop="@+id/lblAdet"
-        android:inputType="number"
-        android:text="2 "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/lblFiyat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/lblAdet"
-        android:layout_marginTop="45dp"
-        android:text="Fiyat:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/txtFiyat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spnUrun"
-        android:layout_alignStart="@+id/spnUrun"
-        android:layout_alignTop="@+id/lblFiyat"
-        android:inputType="number"
-        android:text="2 "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/btnEkle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lblFiyat"
-        android:layout_marginTop="92dp"
-        android:text="Ekle" />
-
-    <Button
-        android:id="@+id/btnCikar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btnEkle"
-        android:layout_toEndOf="@+id/btnEkle"
-        android:layout_toRightOf="@+id/btnEkle"
-        android:text="Çıkar" />
-
-    <Button
-        android:id="@+id/btnKaydet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btnCikar"
-        android:layout_toEndOf="@+id/btnCikar"
-        android:layout_toRightOf="@+id/btnCikar"
-        android:text="Kaydet" />
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="100">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#E1F5FE"
-        android:drawingCacheQuality="high"
-        android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblUrun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="30"
+                    android:text="Urün:"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ListView
-            android:id="@+id/lstSiparisSepeti"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/txtTeslimAlacaklar"
-            android:background="#e0ece0" />
+                <Spinner
+                    android:id="@+id/spnUrun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/lblUrun"
+                    android:layout_marginLeft="50dp"
+                    android:layout_weight="70" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/lblBasketBirim"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/lblUrun"
+                    android:layout_weight="15"
+                    android:text="m2:"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/txtBasketBirim"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/spnUrun"
+                    android:layout_alignStart="@+id/spnUrun"
+                    android:layout_alignTop="@+id/lblm2"
+                    android:layout_weight="25"
+                    android:inputType="number"
+                    android:text="2 "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
-    </LinearLayout>
-</RelativeLayout>
+                <TextView
+                    android:id="@+id/lblBasketAdet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="15"
+                    android:text="Adet:"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/txtAdet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/spnUrun"
+                    android:layout_alignStart="@+id/spnUrun"
+                    android:layout_alignTop="@+id/lblAdet"
+                    android:layout_weight="25"
+                    android:inputType="number"
+                    android:text="2 "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+
+                <Button
+                    android:id="@+id/btnEkle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ekle" />
+
+                <Button
+                    android:id="@+id/btnCikar"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Çıkar" />
+
+                <Button
+                    android:id="@+id/btnKaydet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Kaydet" />
+            </TableRow>
+
+
+        </TableLayout>
+    </ScrollView>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/list_test"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

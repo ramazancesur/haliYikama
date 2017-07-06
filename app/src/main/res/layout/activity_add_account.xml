@@ -26,85 +26,91 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:weightSum="10">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
+                        android:layout_weight="3"
                         android:text="Adı"
                         android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txtYeniMusteriAdi"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dip"
-                        android:layout_weight="1"
+                        android:layout_weight="7"
                         android:inputType="text" />
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:weightSum="10">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
+                        android:layout_weight="3"
                         android:text="Soyadı"
                         android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txtYeniMusteriSoyadi"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dip"
-                        android:layout_weight="1"
+                        android:layout_weight="7"
                         android:inputType="text" />
                 </TableRow>
 
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:weightSum="10">
 
                     <TextView
                         android:id="@+id/lblAdres"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
+                        android:layout_weight="3"
                         android:text="Adresi"
                         android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txtYeniMusteriAddress"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dip"
-                        android:layout_weight="1"
+                        android:layout_weight="7"
                         android:inputType="textMultiLine" />
                 </TableRow>
 
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="10">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dip"
+                        android:layout_weight="3"
                         android:text="Telefon Numarası"
                         android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txtYeniMusteriPhone"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_column="9"
-                        android:layout_marginLeft="0dip"
-                        android:layout_weight="2"
+                        android:layout_weight="7"
                         android:inputType="phone" />
                 </TableRow>
 
@@ -113,44 +119,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dip">
+                    android:padding="10dip"
+                    android:weightSum="10">
 
                     <Button
                         android:id="@+id/btnYeniMusteriReset"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
                         android:text="Sayfayı Temizle" />
 
                     <Button
                         android:id="@+id/btnYeniMusteriKaydet"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
                         android:text="Kaydet" />
                 </TableRow>
 
                 <TableRow
                     android:id="@+id/rowMusteriSilme"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:padding="20dip">
+                    android:padding="10dip"
+                    android:weightSum="10">
 
                     <Button
                         android:id="@+id/btnMusteriGuncelle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
                         android:text="Bilgileri Güncelle" />
 
                     <Button
                         android:id="@+id/btnMusteriSil"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
                         android:text="Kaydı Sil" />
                 </TableRow>
 
@@ -158,14 +168,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dip">
+                    android:padding="10dip"
+                    android:weightSum="10">
 
                     <Button
                         android:id="@+id/btnMusteriSiparisEkle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:layout_weight="10"
                         android:text="Siparis Ekle" />
                 </TableRow>
             </TableLayout>
