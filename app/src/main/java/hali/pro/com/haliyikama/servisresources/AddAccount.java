@@ -169,7 +169,6 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
                 intent.putExtra("musteri", musteri);
                 startActivity(intent);
                 break;
-
         }
     }
 
