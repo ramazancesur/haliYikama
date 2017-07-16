@@ -1,32 +1,41 @@
 package hali.pro.com.haliyikama.servisresources;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import hali.pro.com.haliyikama.R;
+import hali.pro.com.haliyikama.dto.SiparisDTO;
 import hali.pro.com.haliyikama.dto.SiparisListesiDTO;
 import hali.pro.com.haliyikama.dto.UrunDTO;
-import hali.pro.com.haliyikama.helper.Kisi;
+import hali.pro.com.haliyikama.helper.CustomArrayAdapter;
+import hali.pro.com.haliyikama.helper.SpinnerObject;
+import hali.pro.com.haliyikama.helper.interfaces.IDataIslem;
+import hali.pro.com.haliyikama.islemler.DataIslem;
 
 public class Basket extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private static String productName;
-    SiparisListesiDTO siparisListesiDTO;
-    List<UrunDTO> lstUrunler;
-    List<String> lstProductName;
-    Kisi kisi;
-    Button btnInsert, btnDelete, btnSave;
-    EditText txtm2, txtAdet, txtFiyat;
-    UrunDTO urunDTO;
     Spinner spnUrun;
+    EditText txtUrunBirimBoyut, txtUrunAdet;
+    Button btnUrunEkle, btnUrunCikar, btnSipariseGeriDon;
+
+    SiparisListesiDTO siparisListesiDTO;
+    ListView lvSiparis;
+
+    List<SiparisDTO> lstSiparis;
+    UrunDTO selectedUrun;
+
+    SiparisDTO currentSiparis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,98 +43,100 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
         setContentView(R.layout.activity_basket);
         init();
 
-        for (UrunDTO urunDTO : lstUrunler) {
-            lstProductName.add(urunDTO.getProductName());
-        }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, lstProductName);
-        spnUrun.setAdapter(arrayAdapter);
         spnUrun.setOnItemSelectedListener(this);
-    }
 
-    private List<UrunDTO> dataBinding() {
-        lstUrunler = new ArrayList<>();
-        urunDTO = new UrunDTO();
-        urunDTO.setPrice(234);
-        urunDTO.setProductName("test verisi");
-        lstUrunler.add(urunDTO);
-        lstUrunler.add(urunDTO);
-        lstUrunler.add(urunDTO);
-        lstUrunler.add(urunDTO);
-        lstUrunler.add(urunDTO);
-        lstUrunler.add(urunDTO);
-        return lstUrunler;
+
+        btnUrunEkle.setOnClickListener(this);
+        btnUrunCikar.setOnClickListener(this);
+        btnSipariseGeriDon.setOnClickListener(this);
     }
 
     private void init() {
-        // ws den gelecek
-        lstUrunler = new ArrayList<UrunDTO>();
-        // local veri tabanından gelecek
-        siparisListesiDTO = new SiparisListesiDTO();
-        Bundle bundle = getIntent().getExtras();
-        kisi = (Kisi) bundle.get("siparisDetay");
-        lstProductName = new ArrayList<String>();
-        dataBinding();
-        btnInsert = (Button) findViewById(R.id.btnEkle);
-        btnDelete = (Button) findViewById(R.id.btnCikar);
-        btnSave = (Button) findViewById(R.id.btnKaydet);
-        txtAdet = (EditText) findViewById(R.id.txtAdet);
-        txtFiyat = (EditText) findViewById(R.id.txtFiyat);
-        txtm2 = (EditText) findViewById(R.id.txtm2);
         spnUrun = (Spinner) findViewById(R.id.spnUrun);
-        Visible(false);
+        txtUrunAdet = (EditText) findViewById(R.id.txtAdet);
+        txtUrunBirimBoyut = (EditText) findViewById(R.id.txtBasketBirim);
+        lvSiparis = (ListView) findViewById(R.id.lstBasketSiparis);
+
+        btnUrunEkle = (Button) findViewById(R.id.btnEkle);
+        btnUrunCikar = (Button) findViewById(R.id.btnCikar);
+        btnSipariseGeriDon = (Button) findViewById(R.id.btnBaskettoSiparis);
+
+        siparisListesiDTO = (SiparisListesiDTO) getIntent().getSerializableExtra("siparisListesi");
+        lstSiparis = siparisListesiDTO.getLstSiparisDTOS();
+        setDataUrunAdapter();
+
     }
 
-    private void Visible(boolean visibilty) {
-        if (visibilty == true) {
-            txtAdet.setVisibility(View.VISIBLE);
-            txtFiyat.setVisibility(View.VISIBLE);
-            txtm2.setVisibility(View.VISIBLE);
-        } else {
-            txtAdet.setVisibility(View.GONE);
-            txtFiyat.setVisibility(View.GONE);
-            txtm2.setVisibility(View.GONE);
+    private void setDataUrunAdapter() {
+        List<SpinnerObject> lstSpinnerObj = new LinkedList<>();
+        List<UrunDTO> lstUrunDTO = new LinkedList<>();
+        try {
+            IDataIslem dataIslem = new DataIslem();
+            lstUrunDTO = dataIslem.get("Product/UrunDTO/all", UrunDTO.class, Basket.this);
+        } catch (Exception ex) {
+            Log.e("sepet hata", ex.getMessage());
         }
+        for (UrunDTO urunDTO : lstUrunDTO) {
+            SpinnerObject spinnerObject = new SpinnerObject(urunDTO.getOid(), urunDTO.getProductName() + " " + String.valueOf(urunDTO.getPrice()));
+            lstSpinnerObj.add(spinnerObject);
+        }
+        CustomArrayAdapter<SpinnerObject> dataAdapter = new CustomArrayAdapter<SpinnerObject>(getApplicationContext(), lstSpinnerObj);
+        spnUrun.setAdapter(dataAdapter);
     }
+
+
+    private void setDataListAdapter(List<SiparisDTO> lstSiparis) {
+        List<SpinnerObject> lstSpinnerObj = new LinkedList<>();
+        List<SiparisDTO> lstSiparisDTO = new LinkedList<>();
+        for (SiparisDTO siparisDTO : lstSiparisDTO) {
+            SpinnerObject spinnerObject = new SpinnerObject(siparisDTO.getOid(), siparisDTO.getUrun().getProductName());
+            lstSpinnerObj.add(spinnerObject);
+        }
+        CustomArrayAdapter<SpinnerObject> dataAdapter = new CustomArrayAdapter<SpinnerObject>(getApplicationContext(), lstSpinnerObj);
+        spnUrun.setAdapter(dataAdapter);
+    }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnEkle:
-                urunDTO = new UrunDTO();
-                urunDTO.setPrice(Double.parseDouble(txtFiyat.getText().toString()));
+                SiparisDTO siparisDTO = new SiparisDTO();
+                siparisDTO.setAdet(Integer.parseInt(txtUrunAdet.getText().toString()));
+                siparisDTO.setMetre(Integer.parseInt(txtUrunBirimBoyut.getText().toString()));
+                siparisDTO.setUrun(selectedUrun);
+                siparisDTO.setUcreti(selectedUrun.getPrice());
 
-                urunDTO.setProductName(productName);
-                lstUrunler.add(urunDTO);
-                //Veri tabanına Eklenecek
 
-
+                lstSiparis.add(siparisDTO);
+                setDataListAdapter(lstSiparis);
                 break;
             case R.id.btnCikar:
-                // Veri tabanından Çıkartılacak
-                urunDTO = new UrunDTO();
-                urunDTO.setPrice(Double.parseDouble(txtFiyat.getText().toString()));
-
-                urunDTO.setProductName(productName);
-                lstUrunler.remove(urunDTO);
+                if (currentSiparis != null) {
+                    lstSiparis.remove(currentSiparis);
+                } else {
+                    Toast.makeText(Basket.this, "Siparis Seçiniz", Toast.LENGTH_SHORT).show();
+                }
                 break;
-            case R.id.btnKaydet:
-                //Ws deki esas kullanılan veri tabanına eklenecek
-
-                //web servisler hazır olacak
+            case R.id.btnBaskettoSiparis:
+                Intent intent = new Intent(Basket.this, SiparisListesiDTO.class);
+                intent.putExtra("siparisDetay", siparisListesiDTO);
+                startActivity(intent);
                 break;
         }
     }
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
             case R.id.spnUrun:
-                productName = lstProductName.get(position);
-                Visible(true);
+                selectedUrun = (UrunDTO) parent.getItemAtPosition(position);
+                break;
+            case R.id.lstBasketSiparis:
+                currentSiparis = (SiparisDTO) parent.getItemAtPosition(position);
                 break;
         }
+
     }
 
     @Override

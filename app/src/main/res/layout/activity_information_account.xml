@@ -107,8 +107,10 @@
                     android:layout_weight="100">
 
                     <TextView
+                        android:id="@+id/textView2"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
                         android:layout_weight="30"
                         android:text="Siparis Teslim Tarihi"
                         android:textSize="15sp" />
@@ -131,6 +133,7 @@
                     android:layout_weight="100">
 
                     <TextView
+                        android:id="@+id/textView3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="30"
@@ -181,15 +184,6 @@
                     android:padding="10dip">
 
                     <Button
-                        android:id="@+id/btnYeniSiparisEkle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Yeni Siparis Ekle" />
-
-                    <Button
                         android:id="@+id/btnSiparisKaydet"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -197,15 +191,27 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Kaydet" />
+
+                    <Button
+                        android:id="@+id/btnSiparisDetayi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Siparis Detayı" />
+
+
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/rowMusteriSilme"
+                    android:id="@+id/rowSiparisGuncelleSil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:orientation="horizontal"
                     android:padding="10dip">
+
 
                     <Button
                         android:id="@+id/btnSiparisGuncelle"
@@ -217,33 +223,15 @@
                         android:text="Kaydı Güncelle" />
 
                     <Button
-                        android:id="@+id/btnMusteriSil"
+                        android:id="@+id/btnSiparisSil"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-
                         android:layout_gravity="top"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Kaydı Sil" />
                 </TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:padding="10dip">
-
-                    <Button
-                        android:id="@+id/btnSiparisDetayi"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Siparis Detayı" />
-
-                </TableRow>
             </TableLayout>
         </LinearLayout>
 

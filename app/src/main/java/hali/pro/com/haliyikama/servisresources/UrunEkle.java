@@ -87,7 +87,7 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
     private void setDataAdaptor() {
         List<SpinnerObject> lstSpinnerObj = new LinkedList<>();
         for (EnumUtil.UnitType unitType : EnumUtil.UnitType.values()) {
-            SpinnerObject spinnerObject = new SpinnerObject(unitType.ordinal(), unitType.name());
+            SpinnerObject spinnerObject = new SpinnerObject(Long.parseLong(String.valueOf(unitType.ordinal())), unitType.name());
             lstSpinnerObj.add(spinnerObject);
         }
         CustomArrayAdapter<SpinnerObject> dataAdapter = new CustomArrayAdapter<SpinnerObject>(getApplicationContext(), lstSpinnerObj);
@@ -104,7 +104,8 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
         urunDTO.setUrunAciklamasi(txtUrunAciklamasi.getText().toString());
         SpinnerObject spinnerObject = (SpinnerObject) spnYeniUrunBirim.getSelectedItem();
 
-        EnumUtil.UnitType unitType = EnumUtil.UnitType.parse(spinnerObject.getId());
+        EnumUtil.UnitType unitType = EnumUtil.UnitType.parse(Integer.parseInt(
+                String.valueOf(spinnerObject.getId())));
 
         urunDTO.setUnitType(unitType);
 

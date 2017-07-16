@@ -101,11 +101,10 @@
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="fill_parent"
                         android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="Telefon Numarası"
-                        android:textSize="15sp" />
+                        android:gravity="fill_horizontal"
+                        android:text="Telefon Numarası" />
 
                     <EditText
                         android:id="@+id/txtYeniMusteriPhone"
@@ -116,6 +115,7 @@
                 </TableRow>
 
                 <TableRow
+                    android:layout_marginTop="10dp"
                     android:id="@+id/rowMusteriEkleme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
