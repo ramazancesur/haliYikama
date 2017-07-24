@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -17,6 +19,8 @@ import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +45,25 @@ public class Utility implements IUtility {
             newInstance = new Utility();
         }
         return newInstance;
+    }
+
+
+    public <T extends BaseDTO> List<T> sortList(List<T> list) {
+        Comparator<T> comparator = new Comparator<T>() {
+            @Override
+            public int compare(T left, T right) {
+                return (int) (left.getOid() - right.getOid()); // use your logic
+            }
+        };
+
+        Collections.sort(list, comparator);
+
+        return list;
+    }
+
+    public <T> List<T> removeRepeatRecord(List<T> lstRecords) {
+        lstRecords = Lists.newArrayList(Sets.newHashSet(lstRecords));
+        return lstRecords;
     }
 
 

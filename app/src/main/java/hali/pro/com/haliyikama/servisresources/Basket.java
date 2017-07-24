@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,8 +23,8 @@ import hali.pro.com.haliyikama.dto.SiparisListesiDTO;
 import hali.pro.com.haliyikama.dto.UrunDTO;
 import hali.pro.com.haliyikama.helper.CustomArrayAdapter;
 import hali.pro.com.haliyikama.helper.SpinnerObject;
-import hali.pro.com.haliyikama.helper.interfaces.IDataIslem;
-import hali.pro.com.haliyikama.islemler.DataIslem;
+import hali.pro.com.haliyikama.helper.Utility;
+import hali.pro.com.haliyikama.islemler.DataDoldur;
 
 public class Basket extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     Spinner spnUrun;
@@ -34,6 +36,9 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
 
     List<SiparisDTO> lstSiparis;
     UrunDTO selectedUrun;
+
+    List<UrunDTO> lstUrunDTO = new LinkedList<>();
+
 
     SiparisDTO currentSiparis;
 
@@ -63,37 +68,54 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
 
         siparisListesiDTO = (SiparisListesiDTO) getIntent().getSerializableExtra("siparisListesi");
         lstSiparis = siparisListesiDTO.getLstSiparisDTOS();
+
         setDataUrunAdapter();
+
 
     }
 
     private void setDataUrunAdapter() {
         List<SpinnerObject> lstSpinnerObj = new LinkedList<>();
-        List<UrunDTO> lstUrunDTO = new LinkedList<>();
         try {
-            IDataIslem dataIslem = new DataIslem();
-            lstUrunDTO = dataIslem.get("Product/UrunDTO/all", UrunDTO.class, Basket.this);
+            DataDoldur<UrunDTO> dataDoldur = new DataDoldur(Basket.this, "Product/UrunDTO/all", UrunDTO.class);
+            lstUrunDTO = dataDoldur.execute().get();
+
+            // remove repeat record
+
+
+            Utility utility = Utility.createInstance();
+            // Sorted By id
+            lstUrunDTO = utility.removeRepeatRecord(lstUrunDTO);
+            lstUrunDTO = utility.sortList(lstUrunDTO);
         } catch (Exception ex) {
-            Log.e("sepet hata", ex.getMessage());
+            Log.e("sepet_hata", ex.getMessage());
         }
         for (UrunDTO urunDTO : lstUrunDTO) {
-            SpinnerObject spinnerObject = new SpinnerObject(urunDTO.getOid(), urunDTO.getProductName() + " " + String.valueOf(urunDTO.getPrice()));
-            lstSpinnerObj.add(spinnerObject);
+            try {
+                SpinnerObject spinnerObject = new SpinnerObject(urunDTO.getOid(), urunDTO.getProductName() + " " + String.valueOf(urunDTO.getPrice()));
+                lstSpinnerObj.add(spinnerObject);
+            } catch (Exception ex) {
+                Log.e("basket_exception", ex.getMessage());
+            }
+
         }
-        CustomArrayAdapter<SpinnerObject> dataAdapter = new CustomArrayAdapter<SpinnerObject>(getApplicationContext(), lstSpinnerObj);
+        CustomArrayAdapter dataAdapter = new CustomArrayAdapter(getApplicationContext(),
+                android.R.layout.simple_spinner_item,
+                lstSpinnerObj);
         spnUrun.setAdapter(dataAdapter);
     }
 
 
     private void setDataListAdapter(List<SiparisDTO> lstSiparis) {
         List<SpinnerObject> lstSpinnerObj = new LinkedList<>();
-        List<SiparisDTO> lstSiparisDTO = new LinkedList<>();
-        for (SiparisDTO siparisDTO : lstSiparisDTO) {
+        for (SiparisDTO siparisDTO : lstSiparis) {
             SpinnerObject spinnerObject = new SpinnerObject(siparisDTO.getOid(), siparisDTO.getUrun().getProductName());
             lstSpinnerObj.add(spinnerObject);
         }
-        CustomArrayAdapter<SpinnerObject> dataAdapter = new CustomArrayAdapter<SpinnerObject>(getApplicationContext(), lstSpinnerObj);
-        spnUrun.setAdapter(dataAdapter);
+        CustomArrayAdapter dataAdapter = new CustomArrayAdapter(getApplicationContext(),
+                android.R.layout.simple_spinner_item,
+                lstSpinnerObj);
+        lvSiparis.setAdapter(dataAdapter);
     }
 
 
@@ -102,12 +124,13 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
         switch (v.getId()) {
             case R.id.btnEkle:
                 SiparisDTO siparisDTO = new SiparisDTO();
-                siparisDTO.setAdet(Integer.parseInt(txtUrunAdet.getText().toString()));
-                siparisDTO.setMetre(Integer.parseInt(txtUrunBirimBoyut.getText().toString()));
+                siparisDTO.setAdet(Integer.parseInt(txtUrunAdet.getText().toString().replace(" ", "")));
+                siparisDTO.setMetre(Integer.parseInt(txtUrunBirimBoyut.getText().toString().replace(" ", "")));
                 siparisDTO.setUrun(selectedUrun);
                 siparisDTO.setUcreti(selectedUrun.getPrice());
-
-
+                if (lstSiparis == null) {
+                    lstSiparis = new LinkedList<>();
+                }
                 lstSiparis.add(siparisDTO);
                 setDataListAdapter(lstSiparis);
                 break;
@@ -119,7 +142,8 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
                 }
                 break;
             case R.id.btnBaskettoSiparis:
-                Intent intent = new Intent(Basket.this, SiparisListesiDTO.class);
+                Intent intent = new Intent(Basket.this, InformationAccount.class);
+                siparisListesiDTO.setLstSiparisDTOS(lstSiparis);
                 intent.putExtra("siparisDetay", siparisListesiDTO);
                 startActivity(intent);
                 break;
@@ -130,7 +154,21 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
             case R.id.spnUrun:
-                selectedUrun = (UrunDTO) parent.getItemAtPosition(position);
+                SpinnerObject selectedSpinner = (SpinnerObject) parent.getItemAtPosition(position);
+                UrunDTO urunDTO = new UrunDTO();
+                urunDTO.setOid(selectedSpinner.getId());
+
+
+                int selectedOrder = Collections.binarySearch(lstUrunDTO, urunDTO
+                        , new Comparator<UrunDTO>() {
+                            @Override
+                            public int compare(UrunDTO u1, UrunDTO u2) {
+                                return u1.getOid().compareTo(u2.getOid());
+                            }
+                        }
+                );
+
+                selectedUrun = lstUrunDTO.get(selectedOrder);
                 break;
             case R.id.lstBasketSiparis:
                 currentSiparis = (SiparisDTO) parent.getItemAtPosition(position);

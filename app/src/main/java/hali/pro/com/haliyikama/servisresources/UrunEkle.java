@@ -82,6 +82,7 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
         txtUrunAciklamasi.setText("");
         txtUrunAdi.setText("");
         txtFiyati.setText("0");
+        spnYeniUrunBirim.setSelection(0);
     }
 
     private void setDataAdaptor() {
@@ -90,7 +91,9 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
             SpinnerObject spinnerObject = new SpinnerObject(Long.parseLong(String.valueOf(unitType.ordinal())), unitType.name());
             lstSpinnerObj.add(spinnerObject);
         }
-        CustomArrayAdapter<SpinnerObject> dataAdapter = new CustomArrayAdapter<SpinnerObject>(getApplicationContext(), lstSpinnerObj);
+        CustomArrayAdapter dataAdapter = new CustomArrayAdapter(UrunEkle.this,
+                android.R.layout.simple_spinner_item,
+                lstSpinnerObj);
         spnYeniUrunBirim.setAdapter(dataAdapter);
     }
 
@@ -98,7 +101,11 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
         if (urunDTO == null) {
             urunDTO = new UrunDTO();
         }
-        urunDTO.setPrice(Double.parseDouble(txtFiyati.getText().toString()));
+        try {
+            urunDTO.setPrice(Double.parseDouble(txtFiyati.getText().toString()));
+        } catch (Exception ex) {
+            urunDTO.setPrice(0.0);
+        }
         urunDTO.setProductName(txtUrunAdi.getText().toString());
         urunDTO.setGelisTarihi(new Date());
         urunDTO.setUrunAciklamasi(txtUrunAciklamasi.getText().toString());

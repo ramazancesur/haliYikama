@@ -166,7 +166,7 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.btnMusteriSiparisEkle:
                 Intent intent = new Intent(this, InformationAccount.class);
-                intent.putExtra("musteri", musteri);
+                intent.putExtra("musteriDTO", musteri);
                 startActivity(intent);
                 break;
         }

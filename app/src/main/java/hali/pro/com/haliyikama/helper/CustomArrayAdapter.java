@@ -9,34 +9,56 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import hali.pro.com.haliyikama.R;
-
 /**
  * Created by ramazancesur on 01/07/2017.
  */
 
-public class CustomArrayAdapter<T> extends ArrayAdapter<T> {
+public class CustomArrayAdapter extends ArrayAdapter {
+    // Your sent context
+    private Context context;
+    // Your custom values for the spinner (User)
+    private List<SpinnerObject> values;
 
-    public CustomArrayAdapter(Context ctx, List<T> objects) {
-        super(ctx, R.layout.spinner_row, objects);
+    public CustomArrayAdapter(Context context, int textViewResourceId,
+                              List<SpinnerObject> values) {
+        super(context, textViewResourceId, values);
+        this.context = context;
+        this.values = values;
     }
 
-    //other constructors
+    public int getCount() {
+        return values.size();
+    }
+
+    public SpinnerObject getItem(int position) {
+        return values.get(position);
+    }
+
+    public long getItemId(int position) {
+        return position;
+    }
 
     @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        View view = super.getView(position, convertView, parent);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // I created a dynamic TextView here, but you can reference your own  custom layout for each spinner item
+        TextView label = new TextView(context);
+        label.setTextColor(Color.BLACK);
+        // Then you can get the current item using the values array (Users array) and the current position
+        // You can NOW reference each method you has created in your bean object (User class)
 
-        //we know that simple_spinner_item has android.R.id.text1 TextView:
+        label.setText(values.get(position).getName());
 
-        /* if(isDroidX) {*/
-        TextView text = (TextView) view.findViewById(R.id.txtGeneric);
-        text.setTextColor(Color.BLACK);//choose your color :)
-        text.setTextSize(20);
-        /*}*/
-
-        return view;
-
+        // And finally return your dynamic (or custom) view for each spinner item
+        return label;
     }
 
+    @Override
+    public View getDropDownView(int position, View convertView,
+                                ViewGroup parent) {
+        TextView label = new TextView(context);
+        label.setTextColor(Color.BLACK);
+        label.setText(values.get(position).getName());
+
+        return label;
+    }
 }
