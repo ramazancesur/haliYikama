@@ -24,6 +24,7 @@ import java.util.List;
 
 import hali.pro.com.haliyikama.R;
 import hali.pro.com.haliyikama.dto.MusteriDTO;
+import hali.pro.com.haliyikama.dto.SiparisDTO;
 import hali.pro.com.haliyikama.dto.SiparisListesiDTO;
 import hali.pro.com.haliyikama.helper.CustomArrayAdapter;
 import hali.pro.com.haliyikama.helper.EnumUtil;
@@ -76,9 +77,13 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
         musteriDTO = (MusteriDTO) getIntent().getSerializableExtra("musteriDTO");
         siparisListesiDTO = (SiparisListesiDTO) getIntent().getSerializableExtra("siparisDetay");
 
-        if (siparisListesiDTO != null) {
+        if (siparisListesiDTO != null && siparisListesiDTO.getOid() != null) {
             musteriDTO = siparisListesiDTO.getMusteri();
             btnSiparisKaydet.setVisibility(View.GONE);
+        } else if (siparisListesiDTO != null && siparisListesiDTO.getMusteri() != null) {
+            musteriDTO = siparisListesiDTO.getMusteri();
+            rowSiparisGuncelleSil = (TableRow) findViewById(R.id.rowSiparisGuncelleSil);
+            rowSiparisGuncelleSil.setVisibility(View.GONE);
         } else {
             rowSiparisGuncelleSil = (TableRow) findViewById(R.id.rowSiparisGuncelleSil);
             rowSiparisGuncelleSil.setVisibility(View.GONE);
@@ -97,15 +102,25 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
             txtSiparisTeslimTarihi.setText(sdf.format(cal.getTime()));
             txtSiparisTutari.setText("0.0");
         } else {
-            txtSiparisTutari.setText(String.valueOf(siparisListesiDTO.getToplamSiparisBorcu()));
+            txtSiparisTutari.setText(String.valueOf(toplamSiparisTutari(siparisListesiDTO.getLstSiparisDTOS())));
             txtSaticiNotu.setText(siparisListesiDTO.getSaticiNotu());
-            txtSiparisTeslimTarihi.setText(siparisListesiDTO.getBeklenenTeslimatTarihi().toString());
+            String teslimTarihi = sdf.format(siparisListesiDTO.getBeklenenTeslimatTarihi());
+
+            txtSiparisTeslimTarihi.setText(teslimTarihi);
             txtMusteriNotu.setText(siparisListesiDTO.getMusteriNotu());
         }
 
         setDataAdaptor();
     }
 
+
+    private double toplamSiparisTutari(List<SiparisDTO> lstSiparisDTO) {
+        double toplamBorc = 0.0;
+        for (SiparisDTO siparisDTO : lstSiparisDTO) {
+            toplamBorc += siparisDTO.getAdet() * siparisDTO.getMetre() * siparisDTO.getUrun().getPrice();
+        }
+        return toplamBorc;
+    }
 
     private void setDataAdaptor() {
         List<SpinnerObject> lstSpinnerObj = new LinkedList<>();
@@ -153,10 +168,12 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
                 try {
                     dataIslem = new DataIslem();
                     dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.PUT, "işlem başarılu", this,
-                            siparisListesiDTO, "Borc/SiparisListesiDTO");
+                            getCurrentSiparisListesi(this.siparisListesiDTO), "Borc/SiparisListesiDTO");
 
                 } catch (IOException ex) {
                     Log.e("Siparis Kayit Hatasi", ex.getMessage());
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
                 startActivity(intent);
                 break;
@@ -165,7 +182,7 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
 
                     dataIslem = new DataIslem();
                     dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.POST, "işlem başarılu", this,
-                            siparisListesiDTO, "Borc/SiparisListesiDTO");
+                            getCurrentSiparisListesi(this.siparisListesiDTO), "Borc/SiparisListesiDTO");
 
                 } catch (Exception ex) {
                     Log.e("siparis Guncelleme Hatasi", ex.getMessage());
@@ -183,8 +200,7 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
 
-                                txtSiparisTeslimTarihi.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
+                                txtSiparisTeslimTarihi.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                             }
                         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();

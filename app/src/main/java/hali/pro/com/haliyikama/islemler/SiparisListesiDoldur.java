@@ -16,7 +16,7 @@ import hali.pro.com.haliyikama.helper.interfaces.IDataIslem;
  * Created by ramazancesur on 26/06/2017.
  */
 
-public class SiparisListesiDoldur extends AsyncTask<String, String, String> {
+public class SiparisListesiDoldur extends AsyncTask<String, String, List<SiparisListesiDTO>> {
     static List<SiparisListesiDTO> lstSiparisListesi;
     ProgressDialog pd;
     Context ctx;
@@ -44,18 +44,18 @@ public class SiparisListesiDoldur extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected List<SiparisListesiDTO> doInBackground(String... params) {
         List<SiparisListesiDTO> lstSiparisAll = dataIslem.get("Borc/SiparisListesiDTO/all", SiparisListesiDTO.class, ctx);
         for (SiparisListesiDTO siparisListesiDTO : lstSiparisAll) {
             if (siparisListesiDTO.getSiparisDurum() == siparisDurum) {
                 lstSiparisListesi.add(siparisListesiDTO);
             }
         }
-        return "işlem tamamlandı";
+        return lstSiparisListesi;
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(List<SiparisListesiDTO> s) {
         pd.dismiss();
         super.onPostExecute(s);
     }

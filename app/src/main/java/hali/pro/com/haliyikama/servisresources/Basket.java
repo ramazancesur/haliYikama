@@ -26,7 +26,8 @@ import hali.pro.com.haliyikama.helper.SpinnerObject;
 import hali.pro.com.haliyikama.helper.Utility;
 import hali.pro.com.haliyikama.islemler.DataDoldur;
 
-public class Basket extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class Basket extends AppCompatActivity implements View.OnClickListener
+        , AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
     Spinner spnUrun;
     EditText txtUrunBirimBoyut, txtUrunAdet;
     Button btnUrunEkle, btnUrunCikar, btnSipariseGeriDon;
@@ -49,7 +50,7 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
         init();
 
         spnUrun.setOnItemSelectedListener(this);
-
+        lvSiparis.setOnItemClickListener(this);
 
         btnUrunEkle.setOnClickListener(this);
         btnUrunCikar.setOnClickListener(this);
@@ -69,8 +70,8 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
         siparisListesiDTO = (SiparisListesiDTO) getIntent().getSerializableExtra("siparisListesi");
         lstSiparis = siparisListesiDTO.getLstSiparisDTOS();
 
-        setDataUrunAdapter();
 
+        setDataUrunAdapter();
 
     }
 
@@ -103,6 +104,10 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
                 android.R.layout.simple_spinner_item,
                 lstSpinnerObj);
         spnUrun.setAdapter(dataAdapter);
+
+        if (lstSiparis != null) {
+            setDataListAdapter(lstSiparis);
+        }
     }
 
 
@@ -137,6 +142,7 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
             case R.id.btnCikar:
                 if (currentSiparis != null) {
                     lstSiparis.remove(currentSiparis);
+                    setDataListAdapter(lstSiparis);
                 } else {
                     Toast.makeText(Basket.this, "Siparis Seçiniz", Toast.LENGTH_SHORT).show();
                 }
@@ -144,11 +150,13 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
             case R.id.btnBaskettoSiparis:
                 Intent intent = new Intent(Basket.this, InformationAccount.class);
                 siparisListesiDTO.setLstSiparisDTOS(lstSiparis);
+
                 intent.putExtra("siparisDetay", siparisListesiDTO);
                 startActivity(intent);
                 break;
         }
     }
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -170,9 +178,6 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
 
                 selectedUrun = lstUrunDTO.get(selectedOrder);
                 break;
-            case R.id.lstBasketSiparis:
-                currentSiparis = (SiparisDTO) parent.getItemAtPosition(position);
-                break;
         }
 
     }
@@ -180,5 +185,27 @@ public class Basket extends AppCompatActivity implements View.OnClickListener, A
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()) {
+            case R.id.lstBasketSiparis:
+                currentSiparis = lstSiparis.get(position);
+
+                int selectedOrder = Collections.binarySearch(lstUrunDTO, currentSiparis.getUrun()
+                        , new Comparator<UrunDTO>() {
+                            @Override
+                            public int compare(UrunDTO u1, UrunDTO u2) {
+                                return u1.getProductName().compareTo(u2.getProductName());
+                            }
+                        }
+                );
+
+                spnUrun.setSelection(selectedOrder);
+                txtUrunAdet.setText(String.valueOf(currentSiparis.getAdet()).replace(" ", ""));
+                txtUrunBirimBoyut.setText(String.valueOf(currentSiparis.getMetre()).replace(" ", ""));
+                break;
+        }
     }
 }

@@ -35,7 +35,7 @@ public class ReadyAccepted extends AppCompatActivity implements AdapterView.OnIt
         try {
             init();
             SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(pd, ctx, EnumUtil.SiparisDurum.TESLIME_HAZIR);
-            siparisListesiDoldur.execute();
+            lstSiparisListesi = siparisListesiDoldur.execute().get();
         } catch (Exception ex) {
             if (ex.getMessage().contains("401")) {
                 Toast.makeText(this, "Oturum Süresi Dolmuştur Lütfen Tekrar Giriş Yapınız... ", Toast.LENGTH_SHORT).show();
@@ -51,7 +51,9 @@ public class ReadyAccepted extends AppCompatActivity implements AdapterView.OnIt
 
         List<String> lstKisiName = new ArrayList<String>();
         for (SiparisListesiDTO siparisListesiDTO : lstSiparisListesi) {
-            lstKisiName.add(siparisListesiDTO.getMusteri().getAd() + " " + siparisListesiDTO.getMusteri().getSoyad());
+            if (siparisListesiDTO.getSiparisDurum() == EnumUtil.SiparisDurum.TESLIME_HAZIR) {
+                lstKisiName.add(siparisListesiDTO.getMusteri().getAd() + " " + siparisListesiDTO.getMusteri().getSoyad());
+            }
         }
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
