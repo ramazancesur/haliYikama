@@ -108,6 +108,7 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
         }
         urunDTO.setProductName(txtUrunAdi.getText().toString());
         urunDTO.setGelisTarihi(new Date());
+
         urunDTO.setUrunAciklamasi(txtUrunAciklamasi.getText().toString());
         SpinnerObject spinnerObject = (SpinnerObject) spnYeniUrunBirim.getSelectedItem();
 
@@ -124,10 +125,10 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        createOrUpdateUrunDTO(urunDTO);
+        urunDTO = createOrUpdateUrunDTO(urunDTO);
         switch (v.getId()) {
             case R.id.btnYeniUrunKaydet:
-                dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.POST, "Ürün basarı ile Kaydedildi", this, urunDTO, "Product/UrunDTO");
+                dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.PUT, "Ürün basarı ile Kaydedildi", this, urunDTO, "Product/UrunDTO");
                 Intent intent = new Intent(this, login.class);
                 startActivity(intent);
                 break;
@@ -135,7 +136,7 @@ public class UrunEkle extends AppCompatActivity implements View.OnClickListener 
                 resetForms();
                 break;
             case R.id.btnUrunGuncelle:
-                dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.PUT, "Ürün basarı ile Güncellendi", this, urunDTO, "Product/UrunDTO");
+                dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.POST, "Ürün basarı ile Güncellendi", this, urunDTO, "Product/UrunDTO");
                 Intent intent2 = new Intent(this, login.class);
                 startActivity(intent2);
                 break;

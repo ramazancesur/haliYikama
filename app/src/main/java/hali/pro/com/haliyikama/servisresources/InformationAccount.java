@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -34,12 +36,16 @@ import hali.pro.com.haliyikama.islemler.DataIslem;
 
 public class InformationAccount extends AppCompatActivity implements View.OnClickListener {
     DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-    private EditText txtMusteriNotu, txtSaticiNotu, txtSiparisTeslimTarihi, txtSiparisTutari;
-    private TextView lblMusteriAdiSoyadi, lblMusteriToplamBorc;
+    private EditText txtMusteriNotu, txtSaticiNotu, txtSiparisTeslimTarihi,
+            txtSiparisTutari, txtOdenenTutar;
+
+    private TextView lblMusteriAdiSoyadi, lblMusteriToplamBorc, lblToplamOdeme, lblKalanBorc;
+
     private Button btnSiparisKaydet, btnSiparisDetay,
             btnSiparisGuncelle, btnSiparisSil, btnSiparisTarih;
-    private Spinner spnSiparisDurum;
-    private TableRow rowSiparisGuncelleSil;
+
+    private Spinner spnSiparisDurum, spnGuncellemeTipi;
+    private TableRow rowSiparisGuncelleSil, rowSiparisGuncellemeSpn, rowSiparisEkle;
     private MusteriDTO musteriDTO;
     private SiparisListesiDTO siparisListesiDTO;
 
@@ -67,19 +73,26 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
 
         lblMusteriAdiSoyadi = (TextView) findViewById(R.id.lblSiparisMusteriAdiSoyadi);
         lblMusteriToplamBorc = (TextView) findViewById(R.id.lblMusteriToplamBorc);
+        lblToplamOdeme = (TextView) findViewById(R.id.lblToplamOdenen);
+        lblKalanBorc = (TextView) findViewById(R.id.lblKalanBorc);
 
         txtMusteriNotu = (EditText) findViewById(R.id.txtMusteriNotu);
         txtSiparisTeslimTarihi = (EditText) findViewById(R.id.txtTeslimTarihi);
         txtSaticiNotu = (EditText) findViewById(R.id.txtSaticiNotu);
         txtSiparisTutari = (EditText) findViewById(R.id.txtSiparisTutar);
+        txtOdenenTutar = (EditText) findViewById(R.id.txtOdenenTutar);
+
 
         spnSiparisDurum = (Spinner) findViewById(R.id.spnSiparisDurum);
+        spnGuncellemeTipi = (Spinner) findViewById(R.id.spnGuncellemeTipi);
+
         musteriDTO = (MusteriDTO) getIntent().getSerializableExtra("musteriDTO");
         siparisListesiDTO = (SiparisListesiDTO) getIntent().getSerializableExtra("siparisDetay");
 
         if (siparisListesiDTO != null && siparisListesiDTO.getOid() != null) {
             musteriDTO = siparisListesiDTO.getMusteri();
             btnSiparisKaydet.setVisibility(View.GONE);
+
         } else if (siparisListesiDTO != null && siparisListesiDTO.getMusteri() != null) {
             musteriDTO = siparisListesiDTO.getMusteri();
             rowSiparisGuncelleSil = (TableRow) findViewById(R.id.rowSiparisGuncelleSil);
@@ -87,6 +100,11 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
         } else {
             rowSiparisGuncelleSil = (TableRow) findViewById(R.id.rowSiparisGuncelleSil);
             rowSiparisGuncelleSil.setVisibility(View.GONE);
+
+            rowSiparisGuncellemeSpn = (TableRow) findViewById(R.id.rowSiparisGuncellemeSpn);
+            rowSiparisGuncellemeSpn.setVisibility(View.GONE);
+
+
         }
 
         dataBinding(this.musteriDTO);
@@ -96,7 +114,8 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
         // işlemler
         String musteriAdiSoyadi = musteriDTO.getAd() + " " + musteriDTO.getSoyad();
         lblMusteriAdiSoyadi.setText(musteriAdiSoyadi);
-        lblMusteriToplamBorc.setText(String.valueOf(musteriDTO.getToplamBorc()));
+        lblMusteriToplamBorc.setText(String.valueOf(musteriDTO.getToplamBorc().longValue()));
+
         if (siparisListesiDTO == null) {
             Calendar cal = Calendar.getInstance();
             txtSiparisTeslimTarihi.setText(sdf.format(cal.getTime()));
@@ -105,12 +124,21 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
             txtSiparisTutari.setText(String.valueOf(toplamSiparisTutari(siparisListesiDTO.getLstSiparisDTOS())));
             txtSaticiNotu.setText(siparisListesiDTO.getSaticiNotu());
             String teslimTarihi = sdf.format(siparisListesiDTO.getBeklenenTeslimatTarihi());
-
             txtSiparisTeslimTarihi.setText(teslimTarihi);
             txtMusteriNotu.setText(siparisListesiDTO.getMusteriNotu());
+
+            double odemeToplami = siparisListesiDTO.getKalanBorc() - siparisListesiDTO.getSiparisBorcuToplami();
+
+            lblToplamOdeme.setText(String.valueOf(odemeToplami));
+            lblKalanBorc.setText(String.valueOf(siparisListesiDTO.getKalanBorc()));
+
         }
 
         setDataAdaptor();
+
+        String[] items = new String[]{"Yeni Ödeme ", "Son Ödeme"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        spnGuncellemeTipi.setAdapter(adapter);
     }
 
 
@@ -144,6 +172,18 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        siparisListesiDTO.setSonOdenenTutar(Double.parseDouble(txtOdenenTutar.getText().toString()
+                .replace(" ", "").replace("TL", "")));
+
+
+        String selectedItem = (String) spnGuncellemeTipi.getItemAtPosition(spnGuncellemeTipi.getSelectedItemPosition());
+        if (selectedItem.contains("GÜNCELLENMESİ")) {
+            siparisListesiDTO.setSonGuncelemeOdeme(true);
+        } else {
+            siparisListesiDTO.setSonGuncelemeOdeme(false);
+        }
+
+
         siparisListesiDTO.setSaticiNotu(txtSaticiNotu.getText().toString());
         siparisListesiDTO.setMusteri(musteriDTO);
         siparisListesiDTO.setMusteriNotu(txtMusteriNotu.getText().toString());
@@ -152,10 +192,11 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
                 getItemAtPosition(spnSiparisDurum.getSelectedItemPosition());
 
         siparisListesiDTO.setSiparisDurum(EnumUtil.SiparisDurum.valueOf(spinnerObject.getName()));
+
         Date siparisTarih = sdf.parse(txtSiparisTeslimTarihi.getText().toString());
 
+        siparisListesiDTO.setSiparisBorcuToplami(Double.valueOf(txtSiparisTutari.getText().toString()));
         siparisListesiDTO.setBeklenenTeslimatTarihi(siparisTarih);
-        siparisListesiDTO.setToplamSiparisBorcu(Double.parseDouble(txtSiparisTutari.getText().toString()));
         return siparisListesiDTO;
     }
 
@@ -186,6 +227,7 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
 
                 } catch (Exception ex) {
                     Log.e("siparis Guncelleme Hatasi", ex.getMessage());
+                    Toast.makeText(InformationAccount.this, "Hata meydana geldi " + ex.getMessage(), Toast.LENGTH_LONG).show();
                 }
                 startActivity(intent);
                 break;

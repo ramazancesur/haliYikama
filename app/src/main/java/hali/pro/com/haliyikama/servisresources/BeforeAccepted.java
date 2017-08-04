@@ -46,14 +46,18 @@ public class BeforeAccepted extends AppCompatActivity implements AdapterView.OnI
                 Log.e(this.getClass().getSimpleName() + " hata meydana geldi: ", ex.getMessage());
             }
         }
-        List<String> lstKisiName = new ArrayList<String>();
+
+        List<String> lstSiparisOzetBilgi = new ArrayList<String>();
         for (SiparisListesiDTO siparisListesiDTO : lstSiparisListesi) {
             if (siparisListesiDTO.getSiparisDurum() == EnumUtil.SiparisDurum.TESLIM_EDILECEK) {
-                lstKisiName.add(siparisListesiDTO.getMusteri().getAd() + " " + siparisListesiDTO.getMusteri().getSoyad());
+                String siparisOzetBilgisi = siparisListesiDTO.getMusteri().getAd() + "  " + siparisListesiDTO.getMusteri().getSoyad()
+                        + siparisListesiDTO.getBeklenenTeslimatTarihi().toString();
+
+                lstSiparisOzetBilgi.add(siparisOzetBilgisi);
             }
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_list_item_1, lstKisiName);
+                android.R.layout.simple_list_item_1, lstSiparisOzetBilgi);
         lvTeslimEdilecekler.setAdapter(arrayAdapter);
         lvTeslimEdilecekler.setOnItemClickListener(this);
     }

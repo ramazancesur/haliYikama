@@ -149,7 +149,7 @@
 
                     <TextView
                         android:id="@+id/lblMusteriToplamBorc"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dip"
                         android:layout_weight="70"
@@ -160,23 +160,23 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="10">
+                    android:layout_weight="100">
 
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7"
+                        android:layout_weight="30"
                         android:text="Siparis Durumu: "
-                        android:textSize="20dp"
+                        android:textSize="15sp"
                         android:theme="@style/AppTheme" />
 
                     <Spinner
                         android:id="@+id/spnSiparisDurum"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dip"
-                        android:layout_weight="3"
+                        android:layout_weight="70"
                         android:gravity="center" />
 
                 </TableRow>
@@ -202,6 +202,102 @@
                         android:layout_weight="70"
                         android:inputType="text"
                         android:text="0.0 TL" />
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="100">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:text="Toplam Odenen"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/lblToplamOdenen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dip"
+                        android:layout_weight="70"
+                        android:inputType="text"
+                        android:text="0.0 TL" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="100">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:text="Kalan Borc"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/lblKalanBorc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dip"
+                        android:layout_weight="70"
+                        android:inputType="text"
+                        android:text="0.0 TL" />
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="100">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:text="Ödenen Tutar"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/txtOdenenTutar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dip"
+                        android:layout_weight="70"
+                        android:inputType="text"
+                        android:text="0.0 TL" />
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/rowSiparisGuncellemeSpn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="100"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="Güncelleme Tipi"
+                        android:textSize="15sp" />
+
+                    <Spinner
+                        android:id="@+id/spnGuncellemeTipi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="2"
+                        android:gravity="center" />
                 </TableRow>
 
 

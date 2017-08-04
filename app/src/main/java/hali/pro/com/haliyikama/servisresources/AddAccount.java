@@ -27,7 +27,7 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
     Button btnReset, btnSubmit, btnDelete, btnUpdate, btnSiparisEkle;
     EditText txtMusteriAdi, txtMusteriSoyadi, txtPhoneNumber, txtAdress;
     IDataIslem dataIslem;
-    TableRow rowMusteriSilme, rowMusteriEkleme;
+    TableRow rowMusteriSilme, rowMusteriEkleme, rowSiparisEkle;
 
     MusteriDTO musteri;
 
@@ -93,6 +93,8 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
         lstMusteriDTO = new ArrayList<MusteriDTO>();
         rowMusteriEkleme = (TableRow) findViewById(R.id.rowMusteriEkleme);
         rowMusteriSilme = (TableRow) findViewById(R.id.rowMusteriSilme);
+        rowSiparisEkle = (TableRow) findViewById(R.id.rowSiparisEkle);
+
         btnSiparisEkle = (Button) findViewById(R.id.btnMusteriSiparisEkle);
         btnDelete = (Button) findViewById(R.id.btnMusteriSil);
         btnUpdate = (Button) findViewById(R.id.btnMusteriGuncelle);
@@ -106,6 +108,7 @@ public class AddAccount extends AppCompatActivity implements View.OnClickListene
 
         if (musteriIsExist == false) {
             rowMusteriSilme.setVisibility(View.GONE);
+            rowSiparisEkle.setVisibility(View.GONE);
         } else {
             txtMusteriAdi.setText(musteri.getAd());
             txtMusteriSoyadi.setText(musteri.getSoyad());

@@ -149,9 +149,10 @@ public class Basket extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.btnBaskettoSiparis:
                 Intent intent = new Intent(Basket.this, InformationAccount.class);
-                siparisListesiDTO.setLstSiparisDTOS(lstSiparis);
-
-                intent.putExtra("siparisDetay", siparisListesiDTO);
+                if (lstSiparis != null) {
+                    siparisListesiDTO.setLstSiparisDTOS(lstSiparis);
+                    intent.putExtra("siparisDetay", siparisListesiDTO);
+                }
                 startActivity(intent);
                 break;
         }

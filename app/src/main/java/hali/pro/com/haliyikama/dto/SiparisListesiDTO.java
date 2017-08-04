@@ -1,5 +1,7 @@
 package hali.pro.com.haliyikama.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,12 +13,21 @@ import hali.pro.com.haliyikama.helper.EnumUtil;
  */
 public class SiparisListesiDTO extends BaseDTO {
     private MusteriDTO musteri;
-    private double toplamSiparisBorcu;
+    private double siparisBorcuToplami;
     private String musteriNotu;
     private String saticiNotu;
+    @JsonFormat(pattern = "MMMM d, yyyy HH:mm:ss a")
     private Date beklenenTeslimatTarihi;
     private List<SiparisDTO> lstSiparisDTOS;
     private EnumUtil.SiparisDurum siparisDurum;
+    // Bu senet için kalan borcu temsil eder
+    private double kalanBorc;
+
+
+    // Ödeme için eklenen Alanlar
+    private double sonOdenenTutar;
+    private boolean sonGuncelemeOdeme;
+
 
     public MusteriDTO getMusteri() {
         return musteri;
@@ -26,12 +37,12 @@ public class SiparisListesiDTO extends BaseDTO {
         this.musteri = musteri;
     }
 
-    public double getToplamSiparisBorcu() {
-        return toplamSiparisBorcu;
+    public double getSiparisBorcuToplami() {
+        return siparisBorcuToplami;
     }
 
-    public void setToplamSiparisBorcu(double toplamSiparisBorcu) {
-        this.toplamSiparisBorcu = toplamSiparisBorcu;
+    public void setSiparisBorcuToplami(double siparisBorcuToplami) {
+        this.siparisBorcuToplami = siparisBorcuToplami;
     }
 
     public String getMusteriNotu() {
@@ -72,5 +83,29 @@ public class SiparisListesiDTO extends BaseDTO {
 
     public void setSiparisDurum(EnumUtil.SiparisDurum siparisDurum) {
         this.siparisDurum = siparisDurum;
+    }
+
+    public double getKalanBorc() {
+        return kalanBorc;
+    }
+
+    public void setKalanBorc(double kalanBorc) {
+        this.kalanBorc = kalanBorc;
+    }
+
+    public double getSonOdenenTutar() {
+        return sonOdenenTutar;
+    }
+
+    public void setSonOdenenTutar(double sonOdenenTutar) {
+        this.sonOdenenTutar = sonOdenenTutar;
+    }
+
+    public boolean isSonGuncelemeOdeme() {
+        return sonGuncelemeOdeme;
+    }
+
+    public void setSonGuncelemeOdeme(boolean sonGuncelemeOdeme) {
+        this.sonGuncelemeOdeme = sonGuncelemeOdeme;
     }
 }

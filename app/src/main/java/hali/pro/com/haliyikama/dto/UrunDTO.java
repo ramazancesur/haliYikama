@@ -1,5 +1,7 @@
 package hali.pro.com.haliyikama.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 import hali.pro.com.haliyikama.helper.BaseDTO;
@@ -11,9 +13,12 @@ import hali.pro.com.haliyikama.helper.EnumUtil;
 public class UrunDTO extends BaseDTO {
     private String productName;
     private double price;
+    @JsonFormat(pattern = "MMMM d, yyyy HH:mm:ss a")
     private Date sonKullanmaTarihi;
+    @JsonFormat(pattern = "MMMM d, yyyy HH:mm:ss a")
     private Date gelisTarihi;
     private String urunAciklamasi;
+
     private EnumUtil.UnitType unitType;
 
     public String getProductName() {
