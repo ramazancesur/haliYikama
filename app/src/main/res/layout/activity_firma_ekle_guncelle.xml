@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#E1F5FE"
+    android:drawingCacheQuality="high"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="5">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Firma Adı: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtFirmaAdi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:hint="Firma Adı " />
+
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="5">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text=" EPosta"
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtFirmaEPosta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:hint="Firma Posta "
+                        android:inputType="textEmailAddress" />
+
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="5">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Şifre "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtFirmaSifre"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:hint="Şifre"
+                        android:inputType="textPassword" />
+
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="5">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Firma Logosu "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+
+                    <Button
+                        android:id="@+id/btnFirmaResimSec"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Firma Resmi" />
+
+                    <ImageView
+                        android:id="@+id/imageFirmaLogo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/common_ic_googleplayservices" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="5">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Adresi: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtFirmaEkleAdres"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:hint="Adresi "
+                        android:inputType="textMultiLine" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="7">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:text="Kalan SMS"
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtFirmaKalanSms"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="5"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:inputType="number" />
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="7">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:text="Telefon Numarası"
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtFirmaEkleTelefon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="5"
+                        android:gravity="center"
+                        android:hint="Firma Telefonu"
+                        android:inputType="number" />
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="100">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="30"
+                        android:gravity="left"
+                        android:text="Lisans Sona Erme"
+                        android:textSize="15sp" />
+
+
+                    <EditText
+                        android:id="@+id/txtFirmaLisansSonaErme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:editable="false" />
+
+
+                    <Button
+                        android:id="@+id/btnFirmaLisansSonaErme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:text="Tarih Seçin" />
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:padding="20dip">
+
+                    <Button
+                        android:id="@+id/btnFirmaEkleRefresh"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Sayfayı Temizle" />
+
+                    <Button
+                        android:id="@+id/btnFirmaEkleKaydet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Kaydet" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/rowUrunSilme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="20dip"
+                    android:weightSum="2">
+
+                    <Button
+                        android:id="@+id/btnFirmaEkleGuncelle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Bilgileri Güncelle" />
+
+                    <Button
+                        android:id="@+id/btnFirmaEkleSil"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Kaydı Sil" />
+                </TableRow>
+
+            </TableLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

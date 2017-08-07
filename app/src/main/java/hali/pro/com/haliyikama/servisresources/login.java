@@ -13,13 +13,17 @@ import hali.pro.com.haliyikama.helper.RAuthentication;
 public class login extends AppCompatActivity implements View.OnClickListener {
 
     Button btnTeslimEdilecekler, btnTeslimAlacaklar, btnYeniMusteri, btnMusteriArama,
-            btnTeslimeHazir, btnUrunEkle, btnUrunArama;
+            btnTeslimeHazir, btnUrunEkle, btnUrunArama, btnFirmaEkle, btnFirmaListele, btnPersonelEkle, btnPersonelListele;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         init();
+        buttonClick();
+    }
+
+    private void buttonClick() {
         btnMusteriArama.setOnClickListener(this);
         btnYeniMusteri.setOnClickListener(this);
         btnTeslimeHazir.setOnClickListener(this);
@@ -27,6 +31,10 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         btnTeslimEdilecekler.setOnClickListener(this);
         btnUrunEkle.setOnClickListener(this);
         btnUrunArama.setOnClickListener(this);
+        btnPersonelEkle.setOnClickListener(this);
+        btnPersonelListele.setOnClickListener(this);
+        btnFirmaEkle.setOnClickListener(this);
+        btnFirmaListele.setOnClickListener(this);
     }
 
     @Override
@@ -48,6 +56,10 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         btnTeslimeHazir = (Button) findViewById(R.id.btnTeslimeHazir);
         btnUrunEkle=(Button)findViewById(R.id.btnLoginUrunEkle);
         btnUrunArama = (Button) findViewById(R.id.btnUrunListele);
+        btnFirmaEkle = (Button) findViewById(R.id.btnFirmaEkle);
+        btnFirmaListele = (Button) findViewById(R.id.btnFirmaListele);
+        btnPersonelEkle = (Button) findViewById(R.id.btnPersonelEkle);
+        btnPersonelListele = (Button) findViewById(R.id.btnPersonelListele);
     }
 
     @Override
@@ -73,7 +85,15 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         } else if (v.getId() == R.id.btnUrunListele) {
             Intent intent = new Intent(getApplicationContext(), UrunAra.class);
             startActivity(intent);
-        }
+        } else if (v.getId() == R.id.btnFirmaEkle) {
+            Intent intent = new Intent(getApplicationContext(), FirmaEkleGuncelle.class);
+            startActivity(intent);
+        } else if (v.getId() == R.id.btnFirmaListele) {
 
+        } else if (v.getId() == R.id.btnPersonelEkle) {
+
+        } else if (v.getId() == R.id.btnPersonelListele) {
+
+        }
     }
 }

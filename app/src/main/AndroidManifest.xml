@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="hali.pro.com.haliyikama">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -11,12 +12,22 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:theme">
+
+        <activity android:name="net.rdrei.android.dirchooser.DirectoryChooserActivity">
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </activity>
 
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -49,6 +60,11 @@
         <activity
             android:name=".servisresources.UrunAra"
             android:label="@string/title_activity_urun_ara"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".servisresources.FirmaEkleGuncelle"
+            android:exported="true"
+            android:label="@string/title_activity_firma_ekle_guncelle"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
