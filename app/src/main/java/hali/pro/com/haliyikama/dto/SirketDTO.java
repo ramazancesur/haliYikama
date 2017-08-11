@@ -1,6 +1,7 @@
 package hali.pro.com.haliyikama.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 import java.util.List;
@@ -18,11 +19,15 @@ public class SirketDTO extends BaseDTO {
     private Long userOid;
     // 06.08.2017 tarihinde eklendi
     private String encodedImages;
+    @JsonIgnore
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date lisansEndTimes;
+    @JsonIgnore
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date lisansStartTimes;
     private int kalanSms;
+    private String androidLogoPath;
+    private boolean changeImage;
 
     public String getSirketAdi() {
         return sirketAdi;
@@ -94,5 +99,21 @@ public class SirketDTO extends BaseDTO {
 
     public void setKalanSms(int kalanSms) {
         this.kalanSms = kalanSms;
+    }
+
+    public String getAndroidLogoPath() {
+        return androidLogoPath;
+    }
+
+    public void setAndroidLogoPath(String androidLogoPath) {
+        this.androidLogoPath = androidLogoPath;
+    }
+
+    public boolean isChangeImage() {
+        return changeImage;
+    }
+
+    public void setChangeImage(boolean changeImage) {
+        this.changeImage = changeImage;
     }
 }

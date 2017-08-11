@@ -31,7 +31,14 @@ import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -90,6 +97,51 @@ public class Utility implements IUtility {
             newInstance = new Utility();
         }
         return newInstance;
+    }
+
+    public String createCurrentDate() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+        String formatted = format1.format(cal.getTime());
+        return formatted;
+    }
+
+    public String saveImageInternalStroge(File directory, Bitmap bitmapImage, String fileName) {
+        File mypath = new File(directory, "/" + fileName + ".png");
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
+    }
+
+    /**
+     * Retrieve or creates <b>path</b>structure inside in your /data/data/you.app.package/
+     *
+     * @param path "dir1/dir2/dir3"
+     * @return
+     */
+    public File createChildrenFolder(String path, Context context) {
+        File dir = context.getFilesDir();
+        List<String> dirs = new ArrayList<String>(Arrays.asList(path.split("/")));
+        for (int i = 0; i < dirs.size(); ++i) {
+            dir = new File(dir, dirs.get(i)); //Getting a file within the dir.
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+        }
+        return dir;
     }
 
     public String encodeTobase64(Bitmap image) {

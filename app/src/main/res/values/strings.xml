@@ -19,4 +19,5 @@
     <string name="title_activity_urun_ekle">UrunEkle</string>
     <string name="title_activity_urun_ara">UrunAra</string>
     <string name="title_activity_firma_ekle_guncelle">FirmaEkleGuncelle</string>
+    <string name="title_activity_firma_listesi">FirmaListesi</string>
 </resources>

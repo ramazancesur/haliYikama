@@ -37,6 +37,7 @@ import hali.pro.com.haliyikama.dto.SirketDTO;
 import hali.pro.com.haliyikama.helper.EnumUtil;
 import hali.pro.com.haliyikama.helper.Utility;
 import hali.pro.com.haliyikama.islemler.DataIslem;
+import hali.pro.com.haliyikama.serverapplication.User;
 
 public class FirmaEkleGuncelle extends Activity implements View.OnClickListener {
     DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -54,7 +55,11 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firma_ekle_guncelle);
-        init();
+        try {
+            init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         btnFirmaResim.setOnClickListener(this);
         btnFirmaGuncelle.setOnClickListener(this);
         btnFirmaKaydet.setOnClickListener(this);
@@ -63,7 +68,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
         btnLisansSonaErmeTarihi.setOnClickListener(this);
     }
 
-    private void init() {
+    private void init() throws IOException {
         // Button's
         btnFirmaResim = (Button) findViewById(R.id.btnFirmaResimSec);
         btnFirmaGuncelle = (Button) findViewById(R.id.btnFirmaEkleGuncelle);
@@ -84,16 +89,35 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
         // Image View's
         firmaLogo = (ImageView) findViewById(R.id.imageFirmaLogo);
 
-
+        currentSirket = (SirketDTO) getIntent().getSerializableExtra("selectedSirket");
         Calendar cal = Calendar.getInstance();
         txtLisansSonaErmeTarihi.setText(sdf.format(cal.getTime()));
         utility = Utility.createInstance();
+        if (currentSirket == null || currentSirket.getOid() == null) {
+            currentSirket = new SirketDTO();
+        } else {
+            txtFirmaKalanSMS.setText(currentSirket.getKalanSms());
+            txtLisansSonaErmeTarihi.setText(String.valueOf(currentSirket.getLisansEndTimes()));
+
+            // Guncelleme İşlemleri Yapılacaktır
+            DataIslem dataIslem = new DataIslem();
+            User user = (User) dataIslem.get("User/" + currentSirket.getUserOid(), User.class, FirmaEkleGuncelle.this);
+
+            txtFirmaEPosta.setText(user.getUserName());
+            txtFirmaSifre.setText(user.getPassword());
+            txtFirmaAdi.setText(user.getAdi());
+            for (AdresTelefon adresTelefon : currentSirket.getLstAdresTel()) {
+                if (adresTelefon.getTelOrAddres() == EnumUtil.TelOrAddres.ADDRES) {
+                    txtFirmaAdres.setText(adresTelefon.getDeger());
+                } else if (adresTelefon.getTelOrAddres() == EnumUtil.TelOrAddres.TELEFON) {
+                    txtFirmaTelefon.setText(adresTelefon.getDeger());
+                }
+            }
+        }
+        currentSirket.setChangeImage(false);
     }
 
     private SirketDTO getSirketDTO(SirketDTO currentSirket) {
-        if (currentSirket == null || currentSirket.getOid() == null) {
-            currentSirket = new SirketDTO();
-        }
         Bitmap bitmap = ((BitmapDrawable) firmaLogo.getDrawable()).getBitmap();
         String encodedBitmap = utility.encodeTobase64(bitmap);
         currentSirket.setEncodedImages(encodedBitmap);
@@ -132,7 +156,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
     }
 
     private void selectImage() {
-        final CharSequence[] items = {"Fotograf Cek ", "Galariden Sec ",
+        final CharSequence[] items = {"Fotograf Cek ", "Galeriden Sec ",
                 "Iptal "};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -141,19 +165,22 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 boolean result = Utility.checkPermission(FirmaEkleGuncelle.this);
-
                 if (items[item].equals("Fotograf Cek ")) {
                     userChoosenTask = "Fotograf Cek";
-                    if (result)
+                    if (result) {
                         cameraIntent();
+                        currentSirket.setChangeImage(true);
+                    }
 
-                } else if (items[item].equals("Galariden Sec ")) {
-                    userChoosenTask = "Galariden Sec ";
-                    if (result)
+                } else if (items[item].equals("Galeriden Sec ")) {
+                    userChoosenTask = "Galeriden Sec ";
+                    if (result) {
                         galleryIntent();
-
+                        currentSirket.setChangeImage(true);
+                    }
                 } else if (items[item].equals("Iptal ")) {
                     dialog.dismiss();
+                    currentSirket.setChangeImage(false);
                 }
             }
         });
@@ -181,7 +208,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (userChoosenTask.equals("Fotograf Çek"))
                         cameraIntent();
-                    else if (userChoosenTask.equals("Galariden Yükle"))
+                    else if (userChoosenTask.equals("Galeriden Yükle"))
                         galleryIntent();
                 } else {
                     //code for deny
@@ -208,7 +235,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
         File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
+                System.currentTimeMillis() + ".png");
 
         FileOutputStream fo;
         try {
@@ -236,14 +263,12 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
                 e.printStackTrace();
             }
         }
-
         firmaLogo.setImageBitmap(bm);
     }
 
-
     @Override
     public void onClick(View v) {
-        SirketDTO sirketDTO = getSirketDTO(currentSirket);
+        currentSirket = getSirketDTO(currentSirket);
         Intent intent = new Intent(this, login.class);
         switch (v.getId()) {
             case R.id.btnFirmaResimSec:
@@ -266,9 +291,18 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
 
             case R.id.btnFirmaEkleKaydet:
                 try {
+                    File directory = utility.createChildrenFolder("/data/data/haliYikama/Logolar/" + currentSirket.getSirketAdi() + "/"
+                            + utility.createCurrentDate(), FirmaEkleGuncelle.this);
+                    Bitmap bitmap = ((BitmapDrawable) firmaLogo.getDrawable()).getBitmap();
+                    if (currentSirket.isChangeImage()) {
+                        String androidImagePath = Utility.createInstance().saveImageInternalStroge(directory, bitmap, currentSirket.getSirketAdi());
+                        currentSirket.setAndroidLogoPath(androidImagePath + "/" + currentSirket.getSirketAdi() + ".png");
+                    }
+
                     DataIslem dataIslem = new DataIslem();
-                    dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.PUT, "işlem başarılu", this,
-                            sirketDTO, "Firma/SirketDTO");
+                    dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.PUT, "işlem başarılı", this,
+                            currentSirket, "Firma/SirketDTO");
+
 
                 } catch (IOException ex) {
                     Log.e("Siparis Kayit Hatasi", ex.getMessage());
@@ -278,8 +312,8 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
             case R.id.btnFirmaEkleGuncelle:
                 try {
                     DataIslem dataIslem = new DataIslem();
-                    dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.POST, "işlem başarılu", this,
-                            sirketDTO, "Firma/SirketDTO");
+                    dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.POST, "işlem başarılı", this,
+                            currentSirket, "Firma/SirketDTO");
 
                 } catch (IOException ex) {
                     Log.e("Siparis Kayit Hatasi", ex.getMessage());
@@ -290,7 +324,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
                 try {
                     DataIslem dataIslem = new DataIslem();
                     dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.DELETE, "işlem başarılu", this,
-                            sirketDTO, "Firma/SirketDTO");
+                            currentSirket, "Firma/SirketDTO");
 
                 } catch (IOException ex) {
                     Log.e("Siparis Kayit Hatasi", ex.getMessage());

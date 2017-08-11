@@ -17,6 +17,35 @@ public class EnumUtil {
         POST, PUT, DELETE
     }
 
+    public enum UserType {
+        FIRMA(0, "Firma"), ADMIN(1, "Admin"), CALISAN(2, "CalisanDTO");
+        private final Integer id;
+        private final String name;
+
+        UserType(Integer id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        public static UserType parse(Integer id) {
+            for (UserType userType : UserType.values()) {
+                if (userType.getId().equals(id)) {
+                    return userType;
+                }
+            }
+            return null;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+
     public enum UnitType {
         ADET(1, "ADET"),
         KG(2, "KG"),
@@ -63,7 +92,7 @@ public class EnumUtil {
         private final Integer id;
         private final String name;
 
-        private EntityState(Integer id, String name) {
+        EntityState(Integer id, String name) {
             this.id = id;
             this.name = name;
         }

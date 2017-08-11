@@ -11,10 +11,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -23,7 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
-
         <activity android:name="net.rdrei.android.dirchooser.DirectoryChooserActivity">
             <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -65,6 +62,10 @@
             android:name=".servisresources.FirmaEkleGuncelle"
             android:exported="true"
             android:label="@string/title_activity_firma_ekle_guncelle"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".servisresources.FirmaListesi"
+            android:label="@string/title_activity_firma_listesi"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

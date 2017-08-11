@@ -89,7 +89,8 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             Intent intent = new Intent(getApplicationContext(), FirmaEkleGuncelle.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btnFirmaListele) {
-
+            Intent intent = new Intent(getApplicationContext(), FirmaListesi.class);
+            startActivity(intent);
         } else if (v.getId() == R.id.btnPersonelEkle) {
 
         } else if (v.getId() == R.id.btnPersonelListele) {
