@@ -5,7 +5,7 @@ package hali.pro.com.haliyikama.helper;
  */
 
 public class Settings {
-    private static final String serverUrl = "http://192.168.43.213:9002";
+    private static final String serverUrl = "http://174.138.75.98:8080/haliYikama";
 
     public static String getServerUrl() {
         return serverUrl;
