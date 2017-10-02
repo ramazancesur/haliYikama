@@ -276,7 +276,6 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        currentSirket = getSirketDTO(currentSirket);
         Intent intent = new Intent(this, login.class);
         switch (v.getId()) {
             case R.id.btnFirmaResimSec:
@@ -299,6 +298,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
 
             case R.id.btnFirmaEkleKaydet:
                 try {
+                    currentSirket = getSirketDTO(currentSirket);
                     File directory = utility.createChildrenFolder("/data/data/haliYikama/Logolar/" + currentSirket.getSirketAdi() + "/"
                             + utility.createCurrentDate(), FirmaEkleGuncelle.this);
                     Bitmap bitmap = ((BitmapDrawable) firmaLogo.getDrawable()).getBitmap();
@@ -319,6 +319,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
                 break;
             case R.id.btnFirmaEkleGuncelle:
                 try {
+                    currentSirket = getSirketDTO(currentSirket);
                     DataIslem dataIslem = new DataIslem();
                     dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.POST, "işlem başarılı", this,
                             currentSirket, "Firma/SirketDTO");
@@ -331,6 +332,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
                 break;
             case R.id.btnFirmaEkleSil:
                 try {
+                    currentSirket = getSirketDTO(currentSirket);
                     DataIslem dataIslem = new DataIslem();
                     dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.DELETE, "işlem başarılu", this,
                             currentSirket, "Firma/SirketDTO");
