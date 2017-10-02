@@ -54,7 +54,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         btnYeniMusteri = (Button) findViewById(R.id.btnYeniMusteri);
         btnMusteriArama = (Button) findViewById(R.id.btnMusteriAra);
         btnTeslimeHazir = (Button) findViewById(R.id.btnTeslimeHazir);
-        btnUrunEkle=(Button)findViewById(R.id.btnLoginUrunEkle);
+        btnUrunEkle = (Button) findViewById(R.id.btnLoginUrunEkle);
         btnUrunArama = (Button) findViewById(R.id.btnUrunListele);
         btnFirmaEkle = (Button) findViewById(R.id.btnFirmaEkle);
         btnFirmaListele = (Button) findViewById(R.id.btnFirmaListele);
@@ -79,7 +79,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         } else if (v.getId() == R.id.btnMusteriAra) {
             Intent intent = new Intent(getApplicationContext(), SearchAccount.class);
             startActivity(intent);
-        } else if (v.getId() ==R.id.btnLoginUrunEkle){
+        } else if (v.getId() == R.id.btnLoginUrunEkle) {
             Intent intent = new Intent(getApplicationContext(), UrunEkle.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btnUrunListele) {

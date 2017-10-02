@@ -1,6 +1,6 @@
 package hali.pro.com.haliyikama.helper;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,9 +9,9 @@ import java.util.Date;
  * Created by ramazancesur on 01/05/2016.
  */
 public class BaseDTO implements Serializable {
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
     private Date createdDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
     private Date updatedDate;
     private Long oid;
 

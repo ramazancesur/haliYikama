@@ -1,11 +1,12 @@
 package hali.pro.com.haliyikama.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Date;
 import java.util.List;
 
 import hali.pro.com.haliyikama.helper.BaseDTO;
+import hali.pro.com.haliyikama.helper.CustomerDateAndTimeDeserialize;
 import hali.pro.com.haliyikama.helper.EnumUtil;
 
 /**
@@ -16,7 +17,7 @@ public class SiparisListesiDTO extends BaseDTO {
     private double siparisBorcuToplami;
     private String musteriNotu;
     private String saticiNotu;
-    @JsonFormat(pattern = "MMMM d, yyyy HH:mm:ss a")
+    @JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
     private Date beklenenTeslimatTarihi;
     private List<SiparisDTO> lstSiparisDTOS;
     private EnumUtil.SiparisDurum siparisDurum;

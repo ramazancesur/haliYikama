@@ -1,12 +1,12 @@
 package hali.pro.com.haliyikama.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Date;
 import java.util.List;
 
 import hali.pro.com.haliyikama.helper.BaseDTO;
+import hali.pro.com.haliyikama.helper.CustomerDateAndTimeDeserialize;
 
 /**
  * Created by ramazancesur on 23/06/2017.
@@ -15,15 +15,17 @@ public class SirketDTO extends BaseDTO {
     private String sirketAdi;
     private String logoPath;
     private String sirketLisansKey;
+
+    private String password;
+    private String email;
+
     private List<AdresTelefon> lstAdresTel;
     private Long userOid;
     // 06.08.2017 tarihinde eklendi
     private String encodedImages;
-    @JsonIgnore
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
     private Date lisansEndTimes;
-    @JsonIgnore
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
     private Date lisansStartTimes;
     private int kalanSms;
     private String androidLogoPath;
@@ -115,5 +117,21 @@ public class SirketDTO extends BaseDTO {
 
     public void setChangeImage(boolean changeImage) {
         this.changeImage = changeImage;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

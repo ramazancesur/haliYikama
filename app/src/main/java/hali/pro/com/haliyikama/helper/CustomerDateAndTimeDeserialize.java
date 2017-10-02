@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class CustomerDateAndTimeDeserialize extends JsonDeserializer<Date> {
 
-    SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    SimpleDateFormat oldFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a");
     SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
@@ -26,6 +26,7 @@ public class CustomerDateAndTimeDeserialize extends JsonDeserializer<Date> {
         String str = paramJsonParser.getText().trim();
         try {
             Date date = oldFormat.parse(str);
+            //return date;
             oldFormat.applyPattern("dd/MM/yyyy");
             return newFormat.parse(oldFormat.format(date));
         } catch (ParseException e) {
@@ -33,5 +34,4 @@ public class CustomerDateAndTimeDeserialize extends JsonDeserializer<Date> {
         }
         return paramDeserializationContext.parseDate(str);
     }
-
 }

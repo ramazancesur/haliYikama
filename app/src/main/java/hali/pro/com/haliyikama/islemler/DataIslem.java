@@ -8,7 +8,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -16,7 +20,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +30,6 @@ import javax.ws.rs.core.MultivaluedMap;
 import hali.pro.com.haliyikama.authenticationentities.JwtAuthenticationResponse;
 import hali.pro.com.haliyikama.authenticationentities.JwtUser;
 import hali.pro.com.haliyikama.helper.EnumUtil;
-import hali.pro.com.haliyikama.helper.GsonUTCDateAdapter;
 import hali.pro.com.haliyikama.helper.RAuthentication;
 import hali.pro.com.haliyikama.helper.Settings;
 import hali.pro.com.haliyikama.helper.Utility;
@@ -55,25 +58,40 @@ public class DataIslem implements IDataIslem {
     }
 
     private <T> List<T> listEntity(Class<T> clazz, String strJson) {
+        List<T> lst = new LinkedList<T>();
         try {
-            Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new GsonUTCDateAdapter()).create();
+            GsonBuilder builder = new GsonBuilder();
 
+            builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                @Override
+                public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                    return new Date(json.getAsJsonPrimitive().getAsLong());
+                }
+            });
+
+            Gson gson = builder.create();
             JsonParser parser = new JsonParser();
-            JsonArray array = parser.parse(strJson).getAsJsonArray();
+            JsonElement jsonElement = parser.parse(strJson);
 
-            List<T> lst = new ArrayList<T>();
-            for (final JsonElement json : array) {
-                T entity = gson.fromJson(json, clazz);
+            if (jsonElement instanceof JsonArray) {
+                for (final JsonElement json : jsonElement.getAsJsonArray()) {
+                    T entity = gson.fromJson(json, clazz);
+                    lst.add(entity);
+                }
+
+            } else if (jsonElement instanceof JsonObject) {
+                T entity = gson.fromJson(jsonElement, clazz);
                 lst.add(entity);
             }
-
             return lst;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return new LinkedList<>();
+            return new LinkedList<T>();
         }
+
     }
+
 
     private MultivaluedMap<String, String> createHeader() {
         MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
@@ -153,16 +171,16 @@ public class DataIslem implements IDataIslem {
                     ClientResponse response = null;
                     MultivaluedMap<String, String> queryParams = createHeader();
                     if (dataType == EnumUtil.SendingDataType.POST) {
-                        response=webResource.queryParams(queryParams)
+                        response = webResource.queryParams(queryParams)
                                 .header("Content-Type", "application/json;charset=UTF-8")
                                 .header("Authorization", jwtAuthenticationResponse.getToken()).post(ClientResponse.class, input);
                     } else if (dataType == EnumUtil.SendingDataType.PUT) {
-                       response=webResource.queryParams(queryParams)
+                        response = webResource.queryParams(queryParams)
                                 .header("Content-Type", "application/json;charset=UTF-8")
                                 .header("Authorization", jwtAuthenticationResponse.getToken()).put(ClientResponse.class, input);
 
                     } else {
-                        response=webResource.queryParams(queryParams)
+                        response = webResource.queryParams(queryParams)
                                 .header("Content-Type", "application/json;charset=UTF-8")
                                 .header("Authorization", jwtAuthenticationResponse.getToken()).delete(ClientResponse.class, input);
                     }

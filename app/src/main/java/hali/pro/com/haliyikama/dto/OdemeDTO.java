@@ -1,14 +1,18 @@
 package hali.pro.com.haliyikama.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.util.Date;
 
 import hali.pro.com.haliyikama.helper.BaseDTO;
+import hali.pro.com.haliyikama.helper.CustomerDateAndTimeDeserialize;
 
 /**
  * Created by ramazancesur on 23/06/2017.
  */
 public class OdemeDTO extends BaseDTO {
     private Long musteriOid;
+    @JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
     private Date odemeTarihi;
     private Double odemeMiktari;
     private Double kalanMiktar;

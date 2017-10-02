@@ -1,9 +1,12 @@
 package hali.pro.com.haliyikama.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.util.Date;
 import java.util.List;
 
 import hali.pro.com.haliyikama.helper.BaseDTO;
+import hali.pro.com.haliyikama.helper.CustomerDateAndTimeDeserialize;
 import hali.pro.com.haliyikama.helper.EnumUtil;
 
 /**
@@ -16,6 +19,7 @@ public class CalisanDTO extends BaseDTO {
     private String kullaniciAdi;
     private String sifre;
     private List<AdresTelefon> lstAddresTel;
+    @JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
     private Date iseGirisTarihi;
 
 

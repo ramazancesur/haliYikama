@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TableRow;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,6 +46,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
     Button btnFirmaResim, btnFirmaKaydet, btnFirmaGuncelle, btnFirmaSil, btnFirmaTemizle, btnLisansSonaErmeTarihi;
     EditText txtFirmaAdi, txtFirmaEPosta, txtFirmaSifre, txtFirmaAdres,
             txtFirmaTelefon, txtLisansSonaErmeTarihi, txtFirmaKalanSMS;
+    TableRow rowFirmaEkleme, rowFirmaSilme;
     private SirketDTO currentSirket;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChoosenTask;
@@ -85,7 +87,6 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
         txtFirmaTelefon = (EditText) findViewById(R.id.txtFirmaEkleTelefon);
         txtLisansSonaErmeTarihi = (EditText) findViewById(R.id.txtFirmaLisansSonaErme);
         txtFirmaKalanSMS = (EditText) findViewById(R.id.txtFirmaKalanSms);
-
         // Image View's
         firmaLogo = (ImageView) findViewById(R.id.imageFirmaLogo);
 
@@ -93,9 +94,14 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
         Calendar cal = Calendar.getInstance();
         txtLisansSonaErmeTarihi.setText(sdf.format(cal.getTime()));
         utility = Utility.createInstance();
+
         if (currentSirket == null || currentSirket.getOid() == null) {
             currentSirket = new SirketDTO();
+            rowFirmaSilme = (TableRow) findViewById(R.id.rowFirmaSilme);
+            rowFirmaSilme.setVisibility(View.GONE);
         } else {
+            rowFirmaEkleme = (TableRow) findViewById(R.id.rowFirmaEkleme);
+            rowFirmaEkleme.setVisibility(View.GONE);
             txtFirmaKalanSMS.setText(currentSirket.getKalanSms());
             txtLisansSonaErmeTarihi.setText(String.valueOf(currentSirket.getLisansEndTimes()));
 
@@ -129,6 +135,8 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
         }
         currentSirket.setLstAdresTel(getCurrentAdresTel());
         currentSirket.setSirketAdi(txtFirmaAdi.getText().toString());
+        currentSirket.setEmail(txtFirmaEPosta.getText().toString());
+        currentSirket.setPassword(txtFirmaSifre.getText().toString());
         try {
             Date lisansSonaErme = sdf.parse(txtLisansSonaErmeTarihi.getText().toString());
             currentSirket.setLisansEndTimes(lisansSonaErme);
@@ -314,6 +322,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
                     DataIslem dataIslem = new DataIslem();
                     dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.POST, "işlem başarılı", this,
                             currentSirket, "Firma/SirketDTO");
+
 
                 } catch (IOException ex) {
                     Log.e("Siparis Kayit Hatasi", ex.getMessage());
