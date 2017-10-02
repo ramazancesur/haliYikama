@@ -66,7 +66,9 @@
         <activity
             android:name=".servisresources.FirmaListesi"
             android:label="@string/title_activity_firma_listesi"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".servisresources.PersonelEkleGuncellee" />
+        <activity android:name=".servisresources.PersonelListele"></activity>
     </application>
 
 </manifest>

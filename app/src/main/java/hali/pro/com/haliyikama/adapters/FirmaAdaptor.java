@@ -1,4 +1,4 @@
-package hali.pro.com.haliyikama.helper;
+package hali.pro.com.haliyikama.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,33 +11,33 @@ import android.widget.TextView;
 import java.util.List;
 
 import hali.pro.com.haliyikama.R;
-import hali.pro.com.haliyikama.dto.UrunDTO;
+import hali.pro.com.haliyikama.dto.SirketDTO;
 
 /**
- * Created by ramazancesur on 05/07/2017.
+ * Created by ramazancesur on 08/08/2017.
  */
 
-public class UrunAdaptor extends BaseAdapter {
+public class FirmaAdaptor extends BaseAdapter {
     private LayoutInflater mInflater;
-    private List<UrunDTO> lstUrunAdepter;
+    private List<SirketDTO> lstSirketAdepter;
 
-    public UrunAdaptor(Activity activity, List<UrunDTO> lstUrunAdepter) {
+    public FirmaAdaptor(Activity activity, List<SirketDTO> lstSirketDTO) {
         //XML'i alıp View'a çevirecek inflater'ı örnekleyelim
         mInflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         //gösterilecek listeyi de alalım
-        this.lstUrunAdepter = lstUrunAdepter;
+        this.lstSirketAdepter = lstSirketDTO;
     }
 
     @Override
     public int getCount() {
-        return lstUrunAdepter.size();
+        return lstSirketAdepter.size();
     }
 
     @Override
-    public UrunDTO getItem(int position) {
+    public SirketDTO getItem(int position) {
         //şöyle de olabilir: public Object getItem(int position)
-        return lstUrunAdepter.get(position);
+        return lstSirketAdepter.get(position);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class UrunAdaptor extends BaseAdapter {
         satirView = mInflater.inflate(R.layout.satir_layout, null);
         TextView textView =
                 (TextView) satirView.findViewById(R.id.isimsoyisim);
-        UrunDTO urunDTO = lstUrunAdepter.get(position);
-        textView.setText(urunDTO.getProductName() + " " + urunDTO.getPrice());
+        SirketDTO sirketDTO = lstSirketAdepter.get(position);
+        textView.setText("Şirket Adı  " + sirketDTO.getSirketAdi() + " Kalan SMS " + sirketDTO.getKalanSms());
         return satirView;
     }
 

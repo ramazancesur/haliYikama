@@ -1,4 +1,4 @@
-package hali.pro.com.haliyikama.helper;
+package hali.pro.com.haliyikama.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import hali.pro.com.haliyikama.helper.SpinnerObject;
 
 /**
  * Created by ramazancesur on 01/07/2017.

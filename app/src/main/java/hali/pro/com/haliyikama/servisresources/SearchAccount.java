@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import hali.pro.com.haliyikama.R;
+import hali.pro.com.haliyikama.adapters.OzelAdapter;
 import hali.pro.com.haliyikama.dto.MusteriDTO;
-import hali.pro.com.haliyikama.helper.OzelAdapter;
 import hali.pro.com.haliyikama.islemler.MusteriListesiDoldur;
 
 public class SearchAccount extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {

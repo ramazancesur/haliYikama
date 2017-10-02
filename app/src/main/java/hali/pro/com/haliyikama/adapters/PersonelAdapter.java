@@ -1,4 +1,4 @@
-package hali.pro.com.haliyikama.helper;
+package hali.pro.com.haliyikama.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,33 +11,33 @@ import android.widget.TextView;
 import java.util.List;
 
 import hali.pro.com.haliyikama.R;
-import hali.pro.com.haliyikama.dto.SirketDTO;
+import hali.pro.com.haliyikama.dto.CalisanDTO;
 
 /**
- * Created by ramazancesur on 08/08/2017.
+ * Created by ramazancesur on 02/10/2017.
  */
 
-public class FirmaAdaptor extends BaseAdapter {
+public class PersonelAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private List<SirketDTO> lstSirketAdepter;
+    private List<CalisanDTO> lstPersonelData;
 
-    public FirmaAdaptor(Activity activity, List<SirketDTO> lstSirketDTO) {
+    public PersonelAdapter(Activity activity, List<CalisanDTO> lstPersonelData) {
         //XML'i alıp View'a çevirecek inflater'ı örnekleyelim
         mInflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         //gösterilecek listeyi de alalım
-        this.lstSirketAdepter = lstSirketDTO;
+        this.lstPersonelData = lstPersonelData;
     }
 
     @Override
     public int getCount() {
-        return lstSirketAdepter.size();
+        return lstPersonelData.size();
     }
 
     @Override
-    public SirketDTO getItem(int position) {
+    public CalisanDTO getItem(int position) {
         //şöyle de olabilir: public Object getItem(int position)
-        return lstSirketAdepter.get(position);
+        return lstPersonelData.get(position);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class FirmaAdaptor extends BaseAdapter {
         satirView = mInflater.inflate(R.layout.satir_layout, null);
         TextView textView =
                 (TextView) satirView.findViewById(R.id.isimsoyisim);
-        SirketDTO sirketDTO = lstSirketAdepter.get(position);
-        textView.setText("Şirket Adı  " + sirketDTO.getSirketAdi() + " Kalan SMS " + sirketDTO.getKalanSms());
+        CalisanDTO personel = lstPersonelData.get(position);
+        textView.setText("Personel  Adı Soyadı : " + personel.getAd() + " " + personel.getSoyad() + " \n  Kullanıcı Adı: " + personel.getKullaniciAdi());
         return satirView;
     }
 

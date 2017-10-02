@@ -343,7 +343,7 @@ public class FirmaEkleGuncelle extends Activity implements View.OnClickListener 
                 startActivity(intent);
                 break;
             case R.id.btnFirmaEkleRefresh:
-
+                startActivity(new Intent(this, FirmaEkleGuncelle.class));
                 break;
         }
     }

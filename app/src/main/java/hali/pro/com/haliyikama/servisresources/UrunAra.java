@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import hali.pro.com.haliyikama.R;
+import hali.pro.com.haliyikama.adapters.UrunAdaptor;
 import hali.pro.com.haliyikama.dto.UrunDTO;
-import hali.pro.com.haliyikama.helper.UrunAdaptor;
 import hali.pro.com.haliyikama.islemler.DataDoldur;
 
 public class UrunAra extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {

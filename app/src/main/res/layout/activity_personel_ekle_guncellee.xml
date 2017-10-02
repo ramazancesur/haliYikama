@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#E1F5FE"
+    android:drawingCacheQuality="high"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="4">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Personel Ad: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtPersonelAd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:hint="Personel Adı " />
+
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="4">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Personel Soyadi: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtPersonelSoyad"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:hint="Personel Soyadi " />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="4">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Personel EMail: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtPersonelEmail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:hint="Personel EMail "
+                        android:inputType="textEmailAddress" />
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="4">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Personel Şifresi: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtPersonelSifresi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:hint="Personel Sifresi "
+                        android:inputType="textPassword" />
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="4">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Personel Adresi: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtPersonelAdres"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:hint="Personel Adresi "
+                        android:inputType="text|textMultiLine" />
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:weightSum="4">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Personel Telefon: "
+                        android:textSize="20dp"
+                        android:theme="@style/AppTheme" />
+
+                    <EditText
+                        android:id="@+id/txtPersonelTelefon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dip"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:hint="Personel Telefon "
+                        android:inputType="text|phone" />
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="100">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="30"
+                        android:gravity="left"
+                        android:text="Personel İşe Giriş Tarihi"
+                        android:textSize="15sp" />
+
+
+                    <EditText
+                        android:id="@+id/txtPersonelIseGirisTarihi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:editable="false" />
+
+
+                    <Button
+                        android:id="@+id/btnPersonelIseGiris"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:text="Tarih Seçin" />
+
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/rowPersonelEkleme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:padding="20dip">
+
+                    <Button
+                        android:id="@+id/btnPersonelRefresh"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Sayfayı Temizle" />
+
+                    <Button
+                        android:id="@+id/btnPersonelKaydet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Kaydet" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/rowPersonelSilme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="20dip"
+                    android:weightSum="2">
+
+                    <Button
+                        android:id="@+id/btnPersonelGuncelle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Bilgileri Güncelle" />
+
+                    <Button
+                        android:id="@+id/btnPersonelSil"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Kaydı Sil" />
+                </TableRow>
+
+
+            </TableLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+</LinearLayout>

@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import hali.pro.com.haliyikama.R;
+import hali.pro.com.haliyikama.adapters.FirmaAdaptor;
 import hali.pro.com.haliyikama.dto.SirketDTO;
-import hali.pro.com.haliyikama.helper.FirmaAdaptor;
 import hali.pro.com.haliyikama.islemler.DataDoldur;
 
 public class FirmaListesi extends AppCompatActivity

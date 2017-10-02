@@ -1,4 +1,4 @@
-package hali.pro.com.haliyikama.helper;
+package hali.pro.com.haliyikama.adapters;
 
 import android.app.Activity;
 import android.content.Context;
