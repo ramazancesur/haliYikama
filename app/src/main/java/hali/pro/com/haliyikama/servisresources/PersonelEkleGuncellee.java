@@ -67,7 +67,6 @@ public class PersonelEkleGuncellee extends AppCompatActivity implements View.OnC
 
     private CalisanDTO currentCalisan(CalisanDTO calisanDTO) {
         List<AdresTelefon> lstAdresTelefon = new LinkedList<>();
-        ;
         if (calisanDTO == null) {
             calisanDTO = new CalisanDTO();
             Log.i("yeni personel kaydi", Calendar.getInstance().toString());

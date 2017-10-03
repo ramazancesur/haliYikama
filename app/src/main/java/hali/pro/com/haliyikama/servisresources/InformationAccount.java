@@ -167,8 +167,8 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
         try {
             if (siparisListesiDTO == null) {
                 siparisListesiDTO = new SiparisListesiDTO();
+                siparisListesiDTO.setBeklenenTeslimatTarihi(sdf.parse(txtSiparisTeslimTarihi.getText().toString()));
             }
-            siparisListesiDTO.setBeklenenTeslimatTarihi(sdf.parse(txtSiparisTeslimTarihi.getText().toString()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
