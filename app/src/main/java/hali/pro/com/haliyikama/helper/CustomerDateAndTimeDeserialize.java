@@ -9,27 +9,30 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by ramazancesur on 11/08/2017.
- */
-
 public class CustomerDateAndTimeDeserialize extends JsonDeserializer<Date> {
 
-    SimpleDateFormat oldFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a");
+    SimpleDateFormat oldFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aaa");
     SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     public Date deserialize(JsonParser paramJsonParser,
                             DeserializationContext paramDeserializationContext)
             throws IOException {
-
+        Date date = null;
         String str = paramJsonParser.getText().trim();
         try {
-            Date date = oldFormat.parse(str);
+            date = oldFormat.parse(str);
             //return date;
             oldFormat.applyPattern("dd/MM/yyyy");
             return newFormat.parse(oldFormat.format(date));
         } catch (ParseException e) {
+            oldFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aaa");
+            try {
+                oldFormat.parse(str);
+                return oldFormat.parse(str);
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
         }
         return paramDeserializationContext.parseDate(str);

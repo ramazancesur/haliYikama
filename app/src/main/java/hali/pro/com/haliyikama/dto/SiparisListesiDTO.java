@@ -1,5 +1,6 @@
 package hali.pro.com.haliyikama.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Date;
@@ -17,6 +18,7 @@ public class SiparisListesiDTO extends BaseDTO {
     private double siparisBorcuToplami;
     private String musteriNotu;
     private String saticiNotu;
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
     private Date beklenenTeslimatTarihi;
     private List<SiparisDTO> lstSiparisDTOS;
