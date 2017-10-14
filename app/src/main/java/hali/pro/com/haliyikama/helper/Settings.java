@@ -5,10 +5,11 @@ package hali.pro.com.haliyikama.helper;
  */
 
 public class Settings {
-    //private static final String serverUrl = "http://174.138.75.98:8090/haliYikama";
-    //private static final String serverUrl = "http://192.168.120.86:8090/haliYikama";
-    private static final String serverUrl = "http://192.168.43.213:8090/haliYikama";
-    //private static final String serverUrl = "http://192.168.1.48:8090/haliYikama";
+    private static final String serverUrl = "http://162.243.159.59:8080/haliYikama";
+    //private static final String serverUrl = "http://192.168.1.44:8080/haliYikama";
+    // private static final String serverUrl = "http://192.168.43.213:8090/haliYikama";
+    //private static final String serverUrl = "http://192.168.120.119:8080/haliYikama";
+
 
     public static String getServerUrl() {
         return serverUrl;

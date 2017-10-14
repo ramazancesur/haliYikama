@@ -51,8 +51,8 @@ public class MainLoginForm extends AppCompatActivity implements View.OnClickList
             case R.id.btnGirisYap:
                 if (utility.internetControl(MainLoginForm.this)) {
                     JwtUser user = new JwtUser();
-                    user.setPassword(txtUserName.getText().toString());
-                    user.setUsername(txtPassword.getText().toString());
+                    user.setUsername(txtUserName.getText().toString());
+                    user.setPassword(txtPassword.getText().toString());
 
                     LoginTask loginTask = new LoginTask(MainLoginForm.this, user, progressDialog);
                     try {
