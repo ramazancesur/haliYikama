@@ -16,8 +16,8 @@ import hali.pro.com.haliyikama.helper.interfaces.IDataIslem;
  * Created by ramazancesur on 26/06/2017.
  */
 
-public class SiparisListesiDoldur extends AsyncTask<String, String, List<SiparisListesiDTO>> {
-    static List<SiparisListesiDTO> lstSiparisListesi;
+public class SiparisListesiDoldur extends AsyncTask<String, String, String> {
+    public static List<SiparisListesiDTO> lstSiparisListesi;
     ProgressDialog pd;
     Context ctx;
     EnumUtil.SiparisDurum siparisDurum;
@@ -27,12 +27,23 @@ public class SiparisListesiDoldur extends AsyncTask<String, String, List<Siparis
         this.pd = progressDialog;
         this.ctx = context;
         this.siparisDurum = siparisDurum;
-        this.lstSiparisListesi = new LinkedList<>();
+        lstSiparisListesi = new LinkedList<>();
         try {
             dataIslem = new DataIslem();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected String doInBackground(String... strings) {
+        List<SiparisListesiDTO> lstSiparisAll = dataIslem.get("Borc/SiparisListesiDTO/all", SiparisListesiDTO.class, ctx);
+        for (SiparisListesiDTO siparisListesiDTO : lstSiparisAll) {
+            if (siparisListesiDTO.getSiparisDurum() == siparisDurum) {
+                lstSiparisListesi.add(siparisListesiDTO);
+            }
+        }
+        return "";
     }
 
     @Override
@@ -44,18 +55,7 @@ public class SiparisListesiDoldur extends AsyncTask<String, String, List<Siparis
     }
 
     @Override
-    protected List<SiparisListesiDTO> doInBackground(String... params) {
-        List<SiparisListesiDTO> lstSiparisAll = dataIslem.get("Borc/SiparisListesiDTO/all", SiparisListesiDTO.class, ctx);
-        for (SiparisListesiDTO siparisListesiDTO : lstSiparisAll) {
-            if (siparisListesiDTO.getSiparisDurum() == siparisDurum) {
-                lstSiparisListesi.add(siparisListesiDTO);
-            }
-        }
-        return lstSiparisListesi;
-    }
-
-    @Override
-    protected void onPostExecute(List<SiparisListesiDTO> s) {
+    protected void onPostExecute(String s) {
         pd.dismiss();
         super.onPostExecute(s);
     }

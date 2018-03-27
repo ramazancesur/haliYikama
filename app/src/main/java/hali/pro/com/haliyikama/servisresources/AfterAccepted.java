@@ -33,7 +33,8 @@ public class AfterAccepted extends AppCompatActivity implements AdapterView.OnIt
         try {
             init();
             SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(pd, AfterAccepted.this, EnumUtil.SiparisDurum.TESLIM);
-            lstSiparisListesi = siparisListesiDoldur.execute().get();
+            siparisListesiDoldur.execute().get();
+            lstSiparisListesi = SiparisListesiDoldur.lstSiparisListesi;
         } catch (Exception ex) {
             if (ex.getMessage().contains("401")) {
                 Toast.makeText(this, "Oturum Süresi Dolmuştur Lütfen Tekrar Giriş Yapınız... ", Toast.LENGTH_SHORT).show();
