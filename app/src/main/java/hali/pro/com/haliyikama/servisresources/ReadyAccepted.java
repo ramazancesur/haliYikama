@@ -32,9 +32,11 @@ public class ReadyAccepted extends AppCompatActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ready_accepted);
+        ProgressDialog pd = new ProgressDialog(ReadyAccepted.this);
+        pd.show();
         try {
             init();
-            SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(pd, ctx, EnumUtil.SiparisDurum.TESLIME_HAZIR);
+            SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(ctx, EnumUtil.SiparisDurum.TESLIME_HAZIR);
             siparisListesiDoldur.execute().get();
             lstSiparisListesi = SiparisListesiDoldur.lstSiparisListesi;
         } catch (Exception ex) {
@@ -48,6 +50,7 @@ public class ReadyAccepted extends AppCompatActivity implements AdapterView.OnIt
                 Toast.makeText(this, "BEKLENMEYEN HATA", Toast.LENGTH_SHORT).show();
                 Log.e(this.getClass().getSimpleName() + " hata meydana geldi: ", ex.getMessage());
             }
+            pd.dismiss();
         }
 
         List<String> lstKisiName = new ArrayList<String>();

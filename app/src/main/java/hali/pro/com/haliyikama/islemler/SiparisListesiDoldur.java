@@ -1,6 +1,5 @@
 package hali.pro.com.haliyikama.islemler;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -18,13 +17,11 @@ import hali.pro.com.haliyikama.helper.interfaces.IDataIslem;
 
 public class SiparisListesiDoldur extends AsyncTask<String, String, String> {
     public static List<SiparisListesiDTO> lstSiparisListesi;
-    ProgressDialog pd;
     Context ctx;
     EnumUtil.SiparisDurum siparisDurum;
     IDataIslem dataIslem;
 
-    public SiparisListesiDoldur(ProgressDialog progressDialog, Context context, EnumUtil.SiparisDurum siparisDurum) {
-        this.pd = progressDialog;
+    public SiparisListesiDoldur(Context context, EnumUtil.SiparisDurum siparisDurum) {
         this.ctx = context;
         this.siparisDurum = siparisDurum;
         lstSiparisListesi = new LinkedList<>();
@@ -49,14 +46,10 @@ public class SiparisListesiDoldur extends AsyncTask<String, String, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pd = new ProgressDialog(ctx);
-        pd.setMessage("Veriler Yükleniyor Lütfen Bekleyiniz...");
-        pd.show();
     }
 
     @Override
     protected void onPostExecute(String s) {
-        pd.dismiss();
         super.onPostExecute(s);
     }
 }

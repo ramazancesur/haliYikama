@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,16 +22,17 @@ import hali.pro.com.haliyikama.islemler.SiparisListesiDoldur;
 
 public class AfterAccepted extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView lstAfterAccepted;
-    ProgressDialog pd;
     List<SiparisListesiDTO> lstSiparisListesi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_accepted);
+        ProgressDialog pd = new ProgressDialog(AfterAccepted.this);
+        pd.show();
         try {
             init();
-            SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(pd, AfterAccepted.this, EnumUtil.SiparisDurum.TESLIM);
+            SiparisListesiDoldur siparisListesiDoldur = new SiparisListesiDoldur(AfterAccepted.this, EnumUtil.SiparisDurum.TESLIM);
             siparisListesiDoldur.execute().get();
             lstSiparisListesi = SiparisListesiDoldur.lstSiparisListesi;
         } catch (Exception ex) {
@@ -55,9 +55,10 @@ public class AfterAccepted extends AppCompatActivity implements AdapterView.OnIt
                 android.R.layout.simple_list_item_1, lstKisiName);
         lstAfterAccepted.setAdapter(arrayAdapter);
         lstAfterAccepted.setOnItemClickListener(this);
+        pd.dismiss();
     }
 
-    private void init() throws IOException {
+    private void init() {
         lstAfterAccepted = (ListView) findViewById(R.id.lstTeslimAlacaklar);
         lstSiparisListesi = new LinkedList<>();
     }

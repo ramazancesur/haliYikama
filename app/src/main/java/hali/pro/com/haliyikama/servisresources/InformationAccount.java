@@ -220,9 +220,8 @@ public class InformationAccount extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btnSiparisGuncelle:
                 try {
-
                     dataIslem = new DataIslem();
-                    dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.POST, "işlem başarılu", this,
+                    dataIslem.updateDeleteCreateProcess(EnumUtil.SendingDataType.POST, "işlem başarılı", this,
                             getCurrentSiparisListesi(this.siparisListesiDTO), "Borc/SiparisListesiDTO");
 
                 } catch (Exception ex) {
